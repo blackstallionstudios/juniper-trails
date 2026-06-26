@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Juniper Trails — Design Preview</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── Design tokens ─────────────────────────────────── */
+    :root {
+      --forest-deep:    #1C2B1A;
+      --forest:         #3B5438;
+      --sage:           #7A9E74;
+      --parchment:      #F5F2EA;
+      --cream:          #FDFCF8;
+      --bark:           #2E2218;
+      --accent:         #85A20A;
+      --accent-dark:    #6A8208;
+      --accent-light:   #A8C42A;
+      --text-on-dark:   #C8D9C6;
+
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', system-ui, sans-serif;
+
+      --max-w: 1100px;
+      --section-pad: 6rem 2rem;
+    }
+
+    /* ─── Reset ─────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 64px; }
+    body {
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--bark);
+      background: var(--parchment);
+    }
+    img { display: block; width: 100%; object-fit: cover; }
+    a { color: inherit; text-decoration: none; }
+
+    /* ─── Typography ─────────────────────────────────────── */
+    h1, h2, h3 {
+      font-family: var(--font-display);
+      font-weight: 500;
+      line-height: 1.15;
+    }
+    .eyebrow {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    /* ─── Layout ─────────────────────────────────────────── */
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* ─── Nav ────────────────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--forest-deep);
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      color: var(--cream);
+      letter-spacing: 0.02em;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 0.78rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: var(--text-on-dark);
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--cream); }
+    .nav-cta {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 0.45rem 1.1rem;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-cta:hover { background: var(--accent); color: var(--cream); }
+
+    /* ─── Hero ────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      background: var(--forest-deep);
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      padding-top: 64px;
+    }
+    /* Placeholder for real photo — a layered gradient suggesting a dark forest */
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(160deg, rgba(28,43,26,0.92) 0%, rgba(28,43,26,0.6) 60%, rgba(59,84,56,0.4) 100%),
+        repeating-linear-gradient(
+          105deg,
+          rgba(59,84,56,0.08) 0px,
+          rgba(59,84,56,0.08) 1px,
+          transparent 1px,
+          transparent 60px
+        );
+    }
+    /* Subtle organic texture via SVG */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='600' height='600' viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 2rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-text { max-width: 520px; }
+    .hero-text .eyebrow { color: var(--accent-light); margin-bottom: 1.2rem; }
+    .hero-text h1 {
+      font-size: clamp(2.8rem, 5vw, 4.2rem);
+      color: var(--cream);
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+    .hero-text h1 em {
+      font-style: italic;
+      color: var(--sage);
+    }
+    .hero-text p {
+      font-size: 1rem;
+      color: var(--text-on-dark);
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+      max-width: 400px;
+      font-weight: 300;
+    }
+    .hero-actions { display: flex; align-items: center; gap: 2rem; }
+    .btn-primary {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--cream);
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      padding: 0.85rem 2rem;
+      border-radius: 2px;
+      transition: background 0.2s;
+    }
+    .btn-primary:hover { background: var(--accent-dark); }
+    .hero-sub-link {
+      font-size: 0.8rem;
+      color: var(--sage);
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid rgba(122,158,116,0.35);
+      padding-bottom: 1px;
+      transition: color 0.2s;
+    }
+    .hero-sub-link:hover { color: var(--cream); }
+
+    /* Photo placeholder in hero */
+    .hero-photo-wrap {
+      position: relative;
+    }
+    .hero-photo {
+      aspect-ratio: 4/5;
+      border-radius: 4px;
+      overflow: hidden;
+      background: rgba(59,84,56,0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid rgba(122,158,116,0.2);
+    }
+    .hero-photo-placeholder {
+      text-align: center;
+    }
+    .hero-photo-placeholder p {
+      font-size: 0.7rem;
+      color: var(--sage);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-top: 0.75rem;
+    }
+    .photo-icon {
+      width: 48px;
+      height: 48px;
+      margin: 0 auto;
+      opacity: 0.35;
+    }
+    .hero-tag {
+      position: absolute;
+      bottom: -1.5rem;
+      left: -1.5rem;
+      background: var(--accent);
+      color: var(--cream);
+      padding: 1rem 1.25rem;
+      border-radius: 2px;
+    }
+    .hero-tag .tag-number {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 500;
+      line-height: 1;
+      display: block;
+    }
+    .hero-tag .tag-label {
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 0.2rem;
+    }
+
+    /* ─── Rooms section ──────────────────────────────────── */
+    .rooms {
+      padding: var(--section-pad);
+      background: var(--parchment);
+    }
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 3.5rem;
+    }
+    .section-header-text {}
+    .section-header-text .eyebrow { margin-bottom: 0.6rem; }
+    .section-header-text h2 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: var(--forest-deep);
+    }
+    .room-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .room-card {
+      background: var(--cream);
+      border: 0.5px solid rgba(59,84,56,0.15);
+      border-radius: 4px;
+      overflow: hidden;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .room-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 40px rgba(28,43,26,0.1);
+    }
+    .room-photo {
+      aspect-ratio: 4/3;
+      background: #D8D3C8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8a847a;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .room-body { padding: 1.5rem; }
+    .room-body h3 {
+      font-size: 1.45rem;
+      color: var(--forest-deep);
+      margin-bottom: 0.5rem;
+    }
+    .room-body p {
+      font-size: 0.88rem;
+      color: var(--forest);
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .room-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .room-rate {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--bark);
+    }
+    .room-rate span {
+      font-family: var(--font-body);
+      font-size: 0.7rem;
+      color: var(--sage);
+      font-weight: 300;
+    }
+    .btn-outline {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      color: var(--accent-dark);
+      border: 1px solid var(--accent);
+      padding: 0.45rem 1rem;
+      border-radius: 2px;
+      transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--accent); color: var(--cream); }
+
+    /* ─── Breakfast section ───────────────────────────────── */
+    .breakfast {
+      padding: var(--section-pad);
+      background: var(--forest-deep);
+    }
+    .two-col {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .breakfast-text .eyebrow { color: var(--accent-light); margin-bottom: 0.9rem; }
+    .breakfast-text h2 {
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      color: var(--cream);
+      margin-bottom: 1.5rem;
+    }
+    .breakfast-text p {
+      color: var(--text-on-dark);
+      font-weight: 300;
+      line-height: 1.85;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+    }
+    .breakfast-text p:last-of-type { margin-bottom: 2rem; }
+    .breakfast-photo {
+      aspect-ratio: 4/5;
+      background: #3a3028;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #7a6f64;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+
+    /* ─── Testimonials ───────────────────────────────────── */
+    .testimonials {
+      padding: var(--section-pad);
+      background: var(--cream);
+      border-top: 0.5px solid rgba(59,84,56,0.12);
+      border-bottom: 0.5px solid rgba(59,84,56,0.12);
+    }
+    .testimonials-inner {
+      max-width: var(--max-w);
+      margin: 0 auto;
+    }
+    .testimonials-inner .eyebrow { margin-bottom: 0.6rem; }
+    .testimonials-inner > h2 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      color: var(--forest-deep);
+      margin-bottom: 3rem;
+    }
+    .quote-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .quote-card {
+      background: var(--parchment);
+      border: 0.5px solid rgba(59,84,56,0.15);
+      border-top: 2.5px solid var(--accent);
+      border-radius: 4px;
+      padding: 2rem;
+    }
+    .quote-mark {
+      font-family: var(--font-display);
+      font-size: 4rem;
+      line-height: 0.5;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      display: block;
+    }
+    .quote-card blockquote {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--forest-deep);
+      line-height: 1.6;
+      font-style: italic;
+      margin-bottom: 1.25rem;
+    }
+    .quote-author {
+      font-size: 0.75rem;
+      color: var(--sage);
+      letter-spacing: 0.05em;
+    }
+
+    /* ─── Contact / CTA ──────────────────────────────────── */
+    .contact {
+      padding: var(--section-pad);
+      background: var(--parchment);
+    }
+    .contact-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .contact-inner .eyebrow { margin-bottom: 0.8rem; }
+    .contact-inner h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--forest-deep);
+      margin-bottom: 1.25rem;
+    }
+    .contact-inner p {
+      color: var(--forest);
+      font-weight: 300;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 2.5rem;
+    }
+    .contact-options {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 3rem;
+    }
+    .contact-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+    }
+    .contact-option .label {
+      font-size: 0.65rem;
+      color: var(--sage);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .contact-option .value {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      color: var(--forest-deep);
+    }
+    .contact-divider {
+      width: 1px;
+      height: 40px;
+      background: rgba(59,84,56,0.2);
+      align-self: center;
+    }
+    .location-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      color: var(--forest);
+      border: 0.5px solid rgba(59,84,56,0.25);
+      padding: 0.5rem 1rem;
+      border-radius: 2px;
+    }
+    .location-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    /* ─── Footer ─────────────────────────────────────────── */
+    footer {
+      background: var(--forest-deep);
+      padding: 2.5rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--cream);
+    }
+    .footer-logo span { color: var(--accent); }
+    footer p {
+      font-size: 0.72rem;
+      color: var(--sage);
+      letter-spacing: 0.04em;
+    }
+
+    /* ─── Design preview banner ───────────────────────────── */
+    .preview-banner {
+      background: var(--accent);
+      padding: 0.6rem 2rem;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--cream);
+      text-transform: uppercase;
+    }
+
+    /* ─── Responsive ──────────────────────────────────────── */
+    @media (max-width: 768px) {
+      :root { --section-pad: 4rem 1.25rem; }
+      .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-photo-wrap { display: none; }
+      nav { padding: 0 1.25rem; }
+      .nav-links { display: none; }
+      .room-grid { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; gap: 2.5rem; }
+      .breakfast-photo { display: none; }
+      .quote-grid { grid-template-columns: 1fr; }
+      .section-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+      footer { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .room-card { transition: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="preview-banner">Design preview — Juniper Trails B&amp;B · Not final content</div>
+
+  <!-- Nav -->
+  <nav>
+    <span class="nav-logo">Juniper <span>Trails</span></span>
+    <ul class="nav-links">
+      <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#breakfast">Breakfast</a></li>
+      <li><a href="#trails">Trails</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Book your stay</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <div class="hero-text">
+        <p class="eyebrow">Williams Lake, BC</p>
+        <h1>
+          27 acres of<br>
+          <em>Cariboo</em> stillness.
+        </h1>
+        <p>
+          A bed &amp; breakfast where the mornings start with something
+          home-baked, the trails lead somewhere worth going, and the
+          hosts make it feel like you've been expected.
+        </p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Book your stay</a>
+          <a href="#rooms" class="hero-sub-link">View rooms →</a>
+        </div>
+      </div>
+      <div class="hero-photo-wrap">
+        <div class="hero-photo">
+          <div class="hero-photo-placeholder">
+            <svg class="photo-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect x="4" y="8" width="40" height="32" rx="3" stroke="#7A9E74" stroke-width="1.5"/>
+              <circle cx="17" cy="20" r="4" stroke="#7A9E74" stroke-width="1.5"/>
+              <path d="M4 33l10-8 7 6 7-10 12 15" stroke="#7A9E74" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <p>Property photo</p>
+          </div>
+        </div>
+        <div class="hero-tag">
+          <span class="tag-number">27</span>
+          <span class="tag-label">acres</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rooms -->
+  <section class="rooms" id="rooms">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-text">
+          <p class="eyebrow">Accommodation</p>
+          <h2>Three rooms, each one its own world.</h2>
+        </div>
+      </div>
+      <div class="room-grid">
+        <div class="room-card">
+          <div class="room-photo">Room photo</div>
+          <div class="room-body">
+            <h3>Molly's Rest</h3>
+            <p>A peaceful ground-floor room with its own entrance, nestled close to the garden and the morning sounds of the property.</p>
+            <div class="room-footer">
+              <div class="room-rate">$XXX <span>/ night</span></div>
+              <a href="#contact" class="btn-outline">Enquire</a>
+            </div>
+          </div>
+        </div>
+        <div class="room-card">
+          <div class="room-photo">Room photo</div>
+          <div class="room-body">
+            <h3>The Suite</h3>
+            <p>Spacious and light-filled, with a sitting area that invites you to slow down before you've even unpacked.</p>
+            <div class="room-footer">
+              <div class="room-rate">$XXX <span>/ night</span></div>
+              <a href="#contact" class="btn-outline">Enquire</a>
+            </div>
+          </div>
+        </div>
+        <div class="room-card">
+          <div class="room-photo">Room photo</div>
+          <div class="room-body">
+            <h3>The Dukes</h3>
+            <p>Warm tones, generous windows, and a view of the land — a room that earns its name with quiet confidence.</p>
+            <div class="room-footer">
+              <div class="room-rate">$XXX <span>/ night</span></div>
+              <a href="#contact" class="btn-outline">Enquire</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Breakfast -->
+  <section class="breakfast" id="breakfast">
+    <div class="two-col container">
+      <div class="breakfast-text">
+        <p class="eyebrow">Every morning</p>
+        <h2>The kind of breakfast people talk about.</h2>
+        <p>
+          Steve's morning table is a thing guests mention unprompted, months
+          after their stay — omelettes made to order, fresh-baked goods still
+          warm, and fruit from the season.
+        </p>
+        <p>
+          It's not hotel food. It's the breakfast a good host makes when they
+          genuinely enjoy cooking for people.
+        </p>
+        <a href="#contact" class="btn-primary">Reserve your room</a>
+      </div>
+      <div class="breakfast-photo">Breakfast photo</div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="testimonials">
+    <div class="testimonials-inner">
+      <p class="eyebrow">Guest words</p>
+      <h2>What people say when they come back.</h2>
+      <div class="quote-grid">
+        <div class="quote-card">
+          <span class="quote-mark">"</span>
+          <blockquote>Steve and Emily are the kind of hosts that make you feel like you've known them for years. We didn't want to leave.</blockquote>
+          <p class="quote-author">— Guest, TripAdvisor</p>
+        </div>
+        <div class="quote-card">
+          <span class="quote-mark">"</span>
+          <blockquote>The breakfast alone is worth the trip. We still talk about those omelettes. The trails were incredible too.</blockquote>
+          <p class="quote-author">— Guest, Google</p>
+        </div>
+        <div class="quote-card">
+          <span class="quote-mark">"</span>
+          <blockquote>A genuinely magical place. The kind of quiet you forget exists until you've had it again.</blockquote>
+          <p class="quote-author">— Guest, TripAdvisor</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section class="contact" id="contact">
+    <div class="contact-inner">
+      <p class="eyebrow">Get in touch</p>
+      <h2>Ready to make a reservation?</h2>
+      <p>
+        There's no online booking system — just a phone call or an email.
+        Steve and Emily are happy to answer questions, talk availability,
+        and make sure the timing works for you.
+      </p>
+      <div class="contact-options">
+        <div class="contact-option">
+          <span class="label">Phone</span>
+          <a href="tel:2503988296" class="value">250-398-8296</a>
+        </div>
+        <div class="contact-divider"></div>
+        <div class="contact-option">
+          <span class="label">Email</span>
+          <a href="mailto:info@junipertrails.ca" class="value">info@junipertrails.ca</a>
+        </div>
+      </div>
+      <a href="https://maps.google.com/?q=Williams+Lake+BC" target="_blank" class="location-tag">
+        <span class="location-dot"></span>
+        10 minutes from Williams Lake, BC
+      </a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-logo">Juniper <span>Trails</span></span>
+    <p>© 2025 Juniper Trails B&amp;B · Williams Lake, BC</p>
+  </footer>
+
+</body>
+</html>
