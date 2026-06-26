@@ -184,6 +184,11 @@
       transition: background 0.2s;
     }
     .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary--dark {
+      background: #E8E0CC;
+      color: var(--forest-deep);
+    }
+    .btn-primary--dark:hover { background: #B8A888; }
     .hero-sub-link {
       font-size: 0.8rem;
       color: var(--sage);
@@ -486,6 +491,12 @@
       border: 0.5px solid rgba(59,84,56,0.25);
       padding: 0.5rem 1rem;
       border-radius: 2px;
+      transition: color 0.2s, border-color 0.2s, background 0.2s;
+    }
+    .location-tag:hover {
+      color: var(--forest-deep);
+      border-color: rgba(59,84,56,0.6);
+      background: rgba(59,84,56,0.06);
     }
     .location-dot {
       width: 6px; height: 6px;
@@ -578,7 +589,7 @@
           hosts make it feel like you've been expected.
         </p>
         <div class="hero-actions">
-          <a href="#contact" class="btn-primary">Book your stay</a>
+          <a href="#contact" class="btn-primary btn-primary--dark">Book your stay</a>
           <a href="#rooms" class="hero-sub-link">View rooms →</a>
         </div>
       </div>
@@ -663,7 +674,7 @@
           It's not hotel food. It's the breakfast a good host makes when they
           genuinely enjoy cooking for people.
         </p>
-        <a href="#contact" class="btn-primary">Reserve your room</a>
+        <a href="#contact" class="btn-primary btn-primary--dark">Reserve your room</a>
       </div>
       <div class="breakfast-photo">Breakfast photo</div>
     </div>
@@ -717,7 +728,7 @@
       </div>
       <a href="https://maps.google.com/?q=Williams+Lake+BC" target="_blank" class="location-tag">
         <span class="location-dot"></span>
-        10 minutes from Williams Lake, BC
+        10 minutes from Williams Lake, BC →
       </a>
     </div>
   </section>
