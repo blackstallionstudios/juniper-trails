@@ -1,0 +1,39 @@
+<!-- Meet the hosts — the "hosts are the product" thesis, stated plainly and up
+     high, before the rooms. A square, matted trail portrait (hung like a print
+     on the parchment wall) sits beside a short first-person welcome signed off
+     by Steve & Emily. The framed plate deliberately rhymes with the hung
+     canvases in the artwork rail further down: the first "work on the wall" you
+     meet is the hosts themselves. Cream mat on a parchment ground so the plate
+     lifts; the green accent stays on the eyebrow + sign-off marks only. -->
+<section class="section section--parchment hosts" id="hosts" aria-labelledby="hosts-title">
+  <div class="container">
+    <div class="hosts__grid" data-reveal-group>
+      <figure class="hosts__portrait" data-reveal>
+        <div class="ph hosts__media" data-label="{{hosts.image.alt}}">
+          {{#if hosts.image.src}}<img
+            src="{{hosts.image.src}}"
+            alt="{{hosts.image.alt}}"
+            width="1280"
+            height="1280"
+            loading="lazy"
+            decoding="async"
+          />{{/if}}
+        </div>
+      </figure>
+
+      <div class="hosts__copy">
+        <p class="eyebrow" data-reveal>{{hosts.eyebrow}}</p>
+        <h2 class="h2" id="hosts-title" data-reveal>{{hosts.heading}}</h2>
+        <p class="lead" data-reveal>{{hosts.lead}}</p>
+        {{#each hosts.body}}
+        <p class="hosts__p" data-reveal>{{this}}</p>
+        {{/each}}
+        <p class="hosts__sign" data-reveal>
+          <span class="hosts__sign-rule" aria-hidden="true"></span>
+          <span class="hosts__sign-name">{{hosts.signature}}</span>
+          {{#if hosts.signatureNote}}<span class="hosts__sign-note">{{hosts.signatureNote}}</span>{{/if}}
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

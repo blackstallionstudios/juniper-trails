@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Rooms — bath slot preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:opsz,wght@9..40,400;9..40,500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --cream:#fdfcf8; --accent-dark:#6a8208;
+    --placeholder:#e7e1d4; --placeholder-ink:#b3a892;
+    --ink:#2e2218; --ink-soft:#5c5346; --rule:rgba(46,34,24,.14);
+    --radius:3px; --radius-lg:6px;
+    --fs-h3:clamp(1.375rem,1.2rem + .78vw,1.953rem);
+    --fs-sm:.9375rem; --fs-eyebrow:.8125rem;
+    --space-1:.5rem; --space-2:1rem; --space-3:1.5rem; --space-4:2.5rem; --space-5:4rem; --space-6:6.5rem;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:"DM Sans",sans-serif;padding:var(--space-6) var(--space-4);}
+  .container{max-width:1100px;margin:0 auto;}
+  .note{font-size:var(--fs-sm);color:var(--ink-soft);margin-bottom:var(--space-5);max-width:60ch;line-height:1.6;}
+  .rooms__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:var(--space-4) var(--space-3);}
+  @media (max-width:900px){.rooms__grid{grid-template-columns:1fr;gap:var(--space-5);max-width:520px;}}
+  .room{display:flex;flex-direction:column;}
+  .room__media-stack{display:flex;flex-direction:column;gap:var(--space-2);margin-bottom:var(--space-3);}
+  .room__media{aspect-ratio:4/5;border-radius:var(--radius-lg);overflow:hidden;}
+  .room__bath{aspect-ratio:3/2;margin:0;border-radius:var(--radius);overflow:hidden;}
+  .ph{position:relative;background:var(--placeholder);border-radius:var(--radius-lg);overflow:hidden;}
+  .ph::after{content:attr(data-label);position:absolute;inset:0;display:grid;place-items:center;font-size:var(--fs-sm);letter-spacing:.04em;color:var(--placeholder-ink);padding:var(--space-3);text-align:center;}
+  .ph img{width:100%;height:100%;object-fit:cover;}
+  .ph:has(img)::after{content:none;}
+  .room__name{font-family:"Cormorant Garamond",serif;font-weight:600;font-size:var(--fs-h3);margin:0 0 var(--space-1);line-height:1.1;}
+  .room__meta{font-size:var(--fs-eyebrow);letter-spacing:.13em;text-transform:uppercase;color:var(--accent-dark);padding-top:var(--space-2);border-top:1px solid var(--rule);margin-bottom:var(--space-2);}
+  .room__desc{color:var(--ink-soft);font-size:var(--fs-sm);line-height:1.62;margin:0;}
+  /* Stand-in tint so the room photo reads as "filled" vs the empty bath slot */
+  .filled{background:linear-gradient(135deg,#cfd6c4,#aeb89c);}
+</style>
+</head>
+<body>
+  <div class="container">
+    <p class="note">Preview of the rooms grid with the new bath slot. The top tile is the existing room photo (shown here as a tint stand-in); the smaller 3:2 tile beneath is the new bath placeholder — it shows a labelled grey box until Steve sends a photo, then fills automatically.</p>
+    <div class="rooms__grid">
+      <article class="room">
+        <div class="room__media-stack">
+          <div class="ph room__media filled"></div>
+          <figure class="ph room__bath" data-label="Ensuite"></figure>
+        </div>
+        <h3 class="room__name">Molly's Rest</h3>
+        <p class="room__meta">Sleeps 2 · Ensuite</p>
+        <p class="room__desc">A warm, simple room with an ensuite to match — the one guests tend to ask for by name when they come back.</p>
+      </article>
+      <article class="room">
+        <div class="room__media-stack">
+          <div class="ph room__media filled"></div>
+          <figure class="ph room__bath" data-label="The bath"></figure>
+        </div>
+        <h3 class="room__name">Chase's Place</h3>
+        <p class="room__meta">Sleeps 2 · The suite · Luxe bath</p>
+        <p class="room__desc">The suite. The largest of the three, with a bathroom guests keep singling out in their reviews and room to spread out and stay a while.</p>
+      </article>
+      <article class="room">
+        <div class="room__media-stack">
+          <div class="ph room__media filled"></div>
+          <figure class="ph room__bath" data-label="Full bath"></figure>
+        </div>
+        <h3 class="room__name">The Dukes</h3>
+        <p class="room__meta">Sleeps 2 · Full bath · Grounds view</p>
+        <p class="room__desc">A full bedroom and full bath with a clear view across the grounds — clean lines, plenty of room, the country right outside the window.</p>
+      </article>
+    </div>
+  </div>
+</body>
+</html>

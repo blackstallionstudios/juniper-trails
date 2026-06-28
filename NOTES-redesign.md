@@ -34,6 +34,33 @@ progress. Hidden below 1200px and degrades to nothing without JS;
 reduced-motion shows the faint trail with active-node highlighting only, no
 draw animation.
 
+## Meet the hosts (new section)
+
+Added a `hosts` section — the "hosts are the product" thesis, stated plainly and
+placed high (Hero → **Hosts** → Rooms). The rest of the page already carried
+that thesis but only through *Steve* (rooms named for his dogs, "Steve cooks,"
+"Steve paints"); Emily had no presence beyond the `site.hosts` label. This
+section is the human anchor that introduces both as an equal pair before the
+later Steve-craft beats elaborate. New `hosts` block in `site.js`
+(`eyebrow / heading / lead / body[] / signature / signatureNote / image`), a
+`#hosts` nav link and spine waypoint ("The hosts"), and a `.hosts__*` block in
+`sections.css`.
+
+Layout: a square, matted trail portrait (cream mat on the section's parchment
+ground, warm hairline + soft shadow) beside a short first-person welcome signed
+"— Steve & Emily, and the dogs." The framed plate intentionally rhymes with the
+hung canvases in the artwork rail: the first "work on the wall" you meet is the
+hosts themselves. Section is `section--parchment` (not dark — the forest-deep
+ground stays reserved for the breakfast→artwork "this is Steve" stretch; and not
+a green fill). Photo: the supplied trail selfie, graded warm to sit in the
+parchment palette (warm WB, ~15% desat, shadows lifted toward `--bark` rather
+than black) and cropped 1:1 to hold both faces on the diagonal and drop the
+blown-out sky — `public/images/H1-SteveEmily-Trail.jpg`, 1280².
+
+Confirm with Steve: whether to keep "and the dogs" in the sign-off (and, if so,
+current dog names elsewhere), and that both are comfortable being described as
+"runners and walkers."
+
 ## Other changes
 
 - Hero: rewrote the keyword-stuffed headline to "Stay where the trails begin.";

@@ -40,6 +40,7 @@ src/
     nav.html               # Sticky header, desktop + mobile menu
     spine.html             # Left-margin trail wayfinding nav
     hero.html              # Full-bleed slideshow + CTAs
+    hosts.html             # Meet the hosts — framed trail portrait + signed welcome
     rooms.html             # Three named rooms (editorial gallery)
     breakfast.html         # Dark section, lead photo + 2-up gallery
     trails.html            # Activities, nearby places, seasonal note
@@ -84,6 +85,7 @@ public/
 | Partial | `#id` | `site.js` key |
 |---------|-------|---------------|
 | hero | `#top` | `hero` |
+| hosts | `#hosts` | `hosts` |
 | rooms | `#rooms` | `rooms` |
 | breakfast | `#breakfast` | `breakfast` |
 | trails | `#trails` | `trails` |
