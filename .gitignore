@@ -1,1 +1,11 @@
+node_modules
+dist
+.DS_Store
+*.local
 .vercel
+.env
+.env.*
+
+# Local photo archives (site assets live in public/images/)
+images/Images.zip
+images/art/

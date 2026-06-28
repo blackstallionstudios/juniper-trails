@@ -1,0 +1,66 @@
+<!-- Steve's artwork — the second panel of the dark "this is Steve" stretch.
+     Header + foot sit in the content column; the rail itself bleeds to the
+     right edge so canvases run off-screen as an invitation to scroll. The
+     rail is a real scroll region (focusable, arrow-key scrollable); gallery.js
+     adds drag-to-scroll and draws the trail-progress line in the foot. No nav
+     or spine entry by design — discovered by scrolling, not navigated to. -->
+<section class="section section--dark artwork" id="artwork" aria-labelledby="artwork-title">
+  <div class="container">
+    <div class="artwork__head" data-reveal-group>
+      <p class="eyebrow eyebrow--on-dark" data-reveal>{{artwork.eyebrow}}</p>
+      <h2 class="h2" id="artwork-title" data-reveal>{{artwork.heading}}</h2>
+      <p class="lead lead--on-dark" data-reveal>{{artwork.intro}}</p>
+    </div>
+  </div>
+
+  <div data-reveal>
+    <div
+      class="artwork__rail"
+      data-art-rail
+      role="region"
+      aria-label="Steve's paintings — scroll sideways to see more"
+      tabindex="0"
+    >
+      <ul class="artwork__track">
+      {{#each artwork.pieces}}
+      <li class="artwork__item" style="--ar: {{this.w}} / {{this.h}}">
+        <figure class="art-canvas">
+          <button
+            type="button"
+            class="art-canvas__frame"
+            data-art-open
+            data-src="{{this.src}}"
+            data-title="{{this.title}}"
+            data-alt="{{this.alt}}"
+            aria-label="View “{{this.title}}” larger"
+          >
+            {{#if this.src}}<img
+              src="{{this.src}}"
+              alt="{{this.alt}}"
+              width="{{this.w}}"
+              height="{{this.h}}"
+              loading="lazy"
+              decoding="async"
+              draggable="false"
+            />{{/if}}
+          </button>
+          <figcaption class="art-canvas__cap">
+            <span class="art-canvas__title">{{this.title}}</span>
+            {{#if this.note}}<span class="art-canvas__note">{{this.note}}</span>{{/if}}
+          </figcaption>
+        </figure>
+      </li>
+      {{/each}}
+      </ul>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="artwork__foot" data-art-foot data-reveal>
+      <span class="artwork__progress" data-art-progress aria-hidden="true">
+        <span class="artwork__progress-fill" data-art-progress-fill></span>
+      </span>
+      <span class="artwork__hint">{{artwork.hint}}</span>
+    </div>
+  </div>
+</section>

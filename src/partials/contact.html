@@ -1,0 +1,25 @@
+<section class="section section--parchment contact" id="contact">
+  <div class="container container--narrow">
+    <div class="sec-head" data-reveal-group>
+      <p class="eyebrow" data-reveal>{{contact.eyebrow}}</p>
+      <h2 class="h2" data-reveal>{{contact.heading}}</h2>
+      <p class="lead" data-reveal>{{contact.body}}</p>
+    </div>
+    <div class="contact__methods" data-reveal>
+      <div class="method">
+        <p class="method__label">Phone</p>
+        <a class="method__value" href="{{site.phoneHref}}">{{site.phone}}</a>
+      </div>
+      <div class="contact__divider" aria-hidden="true"></div>
+      <div class="method">
+        <p class="method__label">Email</p>
+        <a class="method__value" href="{{site.emailHref}}">{{site.email}}</a>
+      </div>
+    </div>
+    <p class="contact__hosts">&mdash; {{site.hosts}}</p>
+    <a class="directions" href="{{site.directionsUrl}}" target="_blank" rel="noopener">
+      {{site.directionsLabel}}
+      <span class="directions__arrow" aria-hidden="true">&rarr;</span>
+    </a>
+  </div>
+</section>

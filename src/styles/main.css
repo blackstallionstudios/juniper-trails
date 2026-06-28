@@ -1,0 +1,7 @@
+/* Single stylesheet entry — linked from <head> as a real render-blocking
+   stylesheet so there is no unstyled flash in dev (the previous FOUC came
+   from importing CSS through main.js, which Vite injects via JS after first
+   paint). Vite inlines these @imports into one hashed file at build time. */
+@import './tokens.css';
+@import './base.css';
+@import './sections.css';

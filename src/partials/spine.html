@@ -1,0 +1,16 @@
+<!-- Signature wayfinding: a meandering "trail" down the left margin.
+     Rendered as a real <nav> of anchor links so it works without JS and is
+     keyboard-accessible; spine.js enhances it with the drawn path + active
+     state. Hidden below ~1200px where there's no room in the margin. -->
+<nav class="spine" aria-label="Sections" data-spine hidden>
+  <ol class="spine__list">
+    {{#each spine}}
+    <li class="spine__item">
+      <a class="spine__link" href="{{this.href}}" data-spine-link>
+        <span class="spine__node" aria-hidden="true"></span>
+        <span class="spine__label">{{this.label}}</span>
+      </a>
+    </li>
+    {{/each}}
+  </ol>
+</nav>

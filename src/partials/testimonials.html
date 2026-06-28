@@ -1,0 +1,17 @@
+<section class="section section--cream" id="guests">
+  <div class="container">
+    <div class="sec-head" data-reveal-group>
+      <p class="eyebrow" data-reveal>{{testimonials.eyebrow}}</p>
+      <h2 class="h2" data-reveal>{{testimonials.heading}}</h2>
+    </div>
+    <div class="quotes" data-reveal-group>
+      {{#each testimonials.items}}
+      <figure class="quote" data-reveal>
+        <span class="quote__mark" aria-hidden="true">&ldquo;</span>
+        <blockquote class="quote__text">{{this.quote}}</blockquote>
+        <figcaption class="quote__by">{{this.author}} · {{this.source}}</figcaption>
+      </figure>
+      {{/each}}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,25 @@
+<section class="section section--dark" id="breakfast">
+  <div class="container">
+    <div class="breakfast__grid">
+      <div class="ph breakfast__media" data-label="{{breakfast.image.alt}}" data-reveal>
+        {{#if breakfast.image.src}}<img src="{{breakfast.image.src}}" alt="{{breakfast.image.alt}}" />{{/if}}
+      </div>
+      <div class="breakfast__copy" data-reveal-group>
+        <p class="eyebrow eyebrow--on-dark" data-reveal>{{breakfast.eyebrow}}</p>
+        <h2 class="h2" data-reveal>{{breakfast.heading}}</h2>
+        {{#each breakfast.body}}
+        <p class="{{#if @first}}lead lead--on-dark{{else}}breakfast__p{{/if}}" data-reveal>{{this}}</p>
+        {{/each}}
+        {{#if breakfast.gallery}}
+        <div class="breakfast__gallery" data-reveal>
+          {{#each breakfast.gallery}}
+          <div class="ph" data-label="{{this.alt}}">
+            {{#if this.src}}<img src="{{this.src}}" alt="{{this.alt}}" />{{/if}}
+          </div>
+          {{/each}}
+        </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</section>

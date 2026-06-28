@@ -1,0 +1,37 @@
+<header class="nav" id="nav">
+  <div class="nav__inner">
+    <a class="wordmark" href="#top" aria-label="{{site.name}} — home"
+      >{{site.nameLead}} <em>{{site.nameAccent}}</em></a
+    >
+    <nav class="nav__desktop" aria-label="Primary">
+      <ul class="nav__links">
+        {{#each nav}}
+        <li><a href="{{this.href}}">{{this.label}}</a></li>
+        {{/each}}
+      </ul>
+    </nav>
+    <div class="nav__actions">
+      <a class="btn btn--primary nav__cta" href="{{site.phoneHref}}">
+        <span class="nav__cta-full">Call {{site.phone}}</span>
+        <span class="nav__cta-short" aria-hidden="true">Call</span>
+      </a>
+      <button
+        class="nav__toggle"
+        type="button"
+        aria-label="Open menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <span class="nav__toggle-bars" aria-hidden="true"></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="nav__panel" id="mobile-menu" aria-label="Sections" hidden>
+    <ul>
+      {{#each nav}}
+      <li><a href="{{this.href}}">{{this.label}}</a></li>
+      {{/each}}
+    </ul>
+  </nav>
+</header>

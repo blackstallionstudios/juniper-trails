@@ -1,0 +1,1004 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Sections — Juniper Trails B&B
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Trail spine (signature) ──────────────────────────────────────────── */
+.spine {
+  position: fixed;
+  left: max(1.25rem, calc((100vw - var(--container)) / 2 - var(--spine-w) + 1.25rem));
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 60;
+  width: var(--spine-w);
+  pointer-events: none; /* only the links catch clicks */
+}
+.spine__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: min(56vh, 460px);
+}
+.spine__svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  overflow: visible;
+}
+.spine__trail {
+  stroke: var(--spine-line);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+.spine__walked {
+  stroke: var(--spine-node-active);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  opacity: 0.9;
+}
+.spine__item { position: relative; height: 0; }
+.spine__link {
+  pointer-events: auto;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.4rem 0;
+}
+.spine__node {
+  position: relative;
+  z-index: 2;
+  width: 9px;
+  height: 9px;
+  margin-left: calc(18px - 4.5px); /* sit on the lane centre (lane w = 36) */
+  border-radius: 50%;
+  background: var(--cream);
+  box-shadow: inset 0 0 0 1.5px var(--spine-node);
+  transition: box-shadow 0.25s ease, background-color 0.25s ease,
+    transform 0.25s ease;
+}
+.spine__label {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--spine-label);
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+  white-space: nowrap;
+}
+.spine__link:hover .spine__label,
+.spine__link:focus-visible .spine__label,
+.spine__link.is-active .spine__label { opacity: 1; transform: translateX(0); }
+.spine__link:hover .spine__node {
+  box-shadow: inset 0 0 0 1.5px var(--spine-node-active);
+  transform: scale(1.15);
+}
+.spine__link.is-active .spine__node {
+  background: var(--spine-node-active);
+  box-shadow: inset 0 0 0 1.5px var(--spine-node-active),
+    0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.spine__link.is-active .spine__label { color: var(--ink-soft); }
+
+@media (max-width: 1199px) { .spine { display: none; } }
+
+/* ── Nav ──────────────────────────────────────────────────────────────── */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  height: var(--nav-h);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease,
+    border-color 0.25s ease;
+  border-bottom: 1px solid transparent;
+}
+.nav.is-stuck {
+  background: color-mix(in srgb, var(--cream) 90%, transparent);
+  backdrop-filter: saturate(1.1) blur(10px);
+  border-bottom-color: var(--rule);
+}
+.nav__inner {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.wordmark {
+  font-family: var(--font-display);
+  font-size: var(--fs-display-sm);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  color: var(--cream);
+  transition: color 0.25s ease;
+}
+.wordmark em { font-style: normal; color: var(--accent-light); }
+.nav.is-stuck .wordmark { color: var(--forest-deep); }
+.nav.is-stuck .wordmark em { color: var(--accent-dark); }
+
+.nav__links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+}
+.nav__links a {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--ink-on-dark);
+  padding: 0.25em 0;
+  position: relative;
+  transition: color 0.2s ease;
+}
+.nav__links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent-light);
+  transition: width 0.2s ease;
+}
+.nav__links a:hover::after { width: 100%; }
+.nav.is-stuck .nav__links a { color: var(--ink-soft); }
+.nav.is-stuck .nav__links a:hover { color: var(--forest-deep); }
+.nav.is-stuck .nav__links a::after { background: var(--accent-dark); }
+
+.nav__actions { display: flex; align-items: center; gap: var(--space-2); }
+.nav__cta-short { display: none; }
+
+.nav__toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: var(--radius);
+  color: var(--cream);
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.25s ease, border-color 0.25s ease;
+}
+.nav.is-stuck .nav__toggle { color: var(--forest-deep); }
+.nav__toggle-bars,
+.nav__toggle-bars::before,
+.nav__toggle-bars::after {
+  content: '';
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: currentColor;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+.nav__toggle-bars::before { transform: translateY(-5px); }
+.nav__toggle-bars::after { transform: translateY(3.5px); }
+.nav__toggle[aria-expanded='true'] .nav__toggle-bars { background: transparent; }
+.nav__toggle[aria-expanded='true'] .nav__toggle-bars::before { transform: translateY(0) rotate(45deg); }
+.nav__toggle[aria-expanded='true'] .nav__toggle-bars::after { transform: translateY(-1.5px) rotate(-45deg); }
+
+.nav__panel {
+  position: fixed;
+  top: var(--nav-h);
+  left: 0;
+  right: 0;
+  background: var(--cream);
+  border-bottom: 1px solid var(--rule);
+  box-shadow: var(--shadow-soft);
+}
+.nav__panel[hidden] { display: none; }
+.nav__panel ul {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-2) var(--gutter) var(--space-3);
+  display: grid;
+  gap: 0;
+}
+.nav__panel a {
+  display: block;
+  padding: var(--space-2) 0;
+  font-size: var(--fs-h3);
+  font-family: var(--font-display);
+  color: var(--forest-deep);
+  border-bottom: 1px solid var(--rule);
+}
+.nav__panel li:last-child a { border-bottom: 0; }
+
+@media (max-width: 760px) {
+  .nav__desktop { display: none; }
+  .nav__toggle { display: inline-flex; }
+  .nav__cta { padding: 0.6em 1em; }
+  .nav__cta-full { display: none; }
+  .nav__cta-short { display: inline; }
+}
+
+/* ── Hero ─────────────────────────────────────────────────────────────── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: flex-end;
+  background: var(--forest-deep);
+  color: var(--ink-on-dark);
+  overflow: hidden;
+}
+.hero__slides { position: absolute; inset: 0; background: var(--placeholder); overflow: hidden; }
+.hero__slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 2.4s ease-in-out, transform 11s linear;
+  will-change: opacity, transform;
+}
+.hero__slide.is-active { opacity: 1; transform: scale(1.13); }
+.hero__slides:empty::after {
+  content: 'Hero photo';
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: start center;
+  padding-top: calc(var(--nav-h) + 7vh);
+  color: var(--placeholder-ink);
+  font-size: var(--fs-sm);
+  letter-spacing: 0.04em;
+}
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+      180deg,
+      rgba(28, 43, 26, 0.5) 0%,
+      rgba(28, 43, 26, 0.12) 34%,
+      rgba(28, 43, 26, 0.32) 64%,
+      rgba(20, 30, 18, 0.82) 100%
+    ),
+    linear-gradient(90deg, rgba(20, 30, 18, 0.5) 0%, rgba(20, 30, 18, 0) 56%);
+}
+.hero__inner {
+  position: relative;
+  z-index: 2;
+  padding-bottom: var(--space-6);
+  padding-top: calc(var(--nav-h) + var(--space-5));
+}
+.hero .eyebrow { color: var(--accent-light); }
+.hero h1 {
+  color: var(--cream);
+  max-width: 15ch;
+  margin-bottom: var(--space-3);
+  text-shadow: 0 1px 30px rgba(15, 24, 14, 0.35);
+}
+.hero .lead {
+  color: var(--cream);
+  opacity: 0.92;
+  max-width: 46ch;
+  margin-bottom: var(--space-4);
+  font-weight: 500;
+}
+.hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* Scroll hint, bottom-right so it never fights the bottom-left lockup. */
+.hero__hint {
+  position: absolute;
+  right: var(--gutter);
+  bottom: var(--space-3);
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7em;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.72;
+}
+.hero__hint::after {
+  content: '';
+  width: 1px;
+  height: 34px;
+  background: linear-gradient(var(--cream), transparent);
+  animation: hintdrift 2.4s ease-in-out infinite;
+}
+@keyframes hintdrift {
+  0%, 100% { transform: scaleY(0.6); transform-origin: top; opacity: 0.4; }
+  50% { transform: scaleY(1); transform-origin: top; opacity: 0.9; }
+}
+@media (max-width: 760px) { .hero__hint { display: none; } }
+
+/* ── Rooms — editorial gallery, no card chrome ────────────────────────── */
+.rooms__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4) var(--space-3);
+}
+@media (max-width: 900px) {
+  .rooms__grid { grid-template-columns: 1fr; gap: var(--space-5); max-width: 520px; }
+}
+.room { display: flex; flex-direction: column; }
+.room__media {
+  aspect-ratio: 4 / 5;
+  margin-bottom: var(--space-3);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.room__media img { transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.room:hover .room__media img { transform: scale(1.04); }
+.room__name { margin-bottom: var(--space-1); }
+.room__meta {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--rule);
+  margin-bottom: var(--space-2);
+}
+.room__desc { color: var(--ink-soft); font-size: var(--fs-sm); line-height: 1.62; }
+
+/* The namesakes — three dogs before the three rooms. Image leads on the left;
+   copy on the right mirrors the parlour beat below (which flips the layout). */
+.rooms__namesakes {
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-5);
+  border-bottom: 1px solid var(--rule);
+}
+.rooms-namesakes {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.36fr);
+  gap: var(--space-4) var(--space-5);
+  align-items: end;
+}
+.rooms-namesakes__copy .h3 { margin-top: var(--space-2); }
+.rooms-namesakes__body {
+  margin-top: var(--space-2);
+  color: var(--ink-soft);
+  font-size: var(--fs-sm);
+  line-height: 1.62;
+  max-width: 34ch;
+}
+.rooms-namesakes__media {
+  margin: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.rooms-namesakes__media img {
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.rooms-namesakes:hover .rooms-namesakes__media img { transform: scale(1.02); }
+@media (max-width: 900px) {
+  .rooms-namesakes {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    align-items: start;
+    max-width: 520px;
+  }
+  .rooms-namesakes__body { max-width: none; }
+}
+
+/* Shared common ground — wide parlour beat after the three private rooms.
+   Copy sits on the spine side; the 3:2 image carries the interior warmth. */
+.rooms__shared {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--rule);
+}
+.rooms-shared {
+  display: grid;
+  grid-template-columns: minmax(0, 0.36fr) minmax(0, 1fr);
+  gap: var(--space-4) var(--space-5);
+  align-items: end;
+}
+.rooms-shared__copy .h3 { margin-top: var(--space-2); }
+.rooms-shared__body {
+  margin-top: var(--space-2);
+  color: var(--ink-soft);
+  font-size: var(--fs-sm);
+  line-height: 1.62;
+  max-width: 34ch;
+}
+.rooms-shared__amenities {
+  margin-top: var(--space-3);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+.rooms-shared__media {
+  margin: 0;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.rooms-shared__media img {
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.rooms-shared:hover .rooms-shared__media img { transform: scale(1.02); }
+@media (max-width: 900px) {
+  .rooms-shared {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    align-items: start;
+    max-width: 520px;
+  }
+  .rooms-shared__body { max-width: none; }
+  .rooms-shared__media { order: -1; }
+}
+
+/* ── Breakfast (dark, split, with a small supporting cluster) ─────────── */
+.breakfast__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-5);
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .breakfast__grid { grid-template-columns: 1fr; gap: var(--space-4); }
+}
+.breakfast__media { aspect-ratio: 5 / 4; border-radius: var(--radius-lg); overflow: hidden; }
+.breakfast__copy .lead { margin-bottom: var(--space-2); }
+.breakfast__copy p + p { margin-top: var(--space-2); }
+.breakfast__p { color: var(--ink-on-dark-soft); font-size: var(--fs-body); line-height: var(--lh-body); }
+.breakfast__gallery {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.breakfast__gallery .ph { aspect-ratio: 3 / 2; border-radius: var(--radius); }
+.breakfast__copy .eyebrow { color: var(--accent-light); }
+
+/* ── Steve's artwork — horizontal "gallery wall" rail ─────────────────────
+   Canvases hang at one common height on a deep-forest wall; their widths
+   follow each painting's true aspect ratio, so the row reads like a real
+   salon hang rather than a uniform grid — and nothing gets cropped. The rail
+   bleeds to the right edge (canvases run off-screen = an invitation to walk
+   on), while the header and the trail-progress foot stay in the content
+   column. The progress fill uses the spine's "walked" accent on purpose: it's
+   the same path metaphor, turned on its side. */
+.artwork {
+  /* Align the bleeding rail's first canvas with the header text: mirror
+     .container's left content edge at any viewport width. */
+  --content-inset: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+  --rail-h: clamp(15rem, 30vw, 25rem); /* common hang height; widths follow each piece */
+  overflow: hidden; /* clip the bleed so the page body never gains a scrollbar */
+}
+.artwork__head { max-width: var(--measure); margin-bottom: var(--space-5); }
+.artwork__head .lead { margin-top: var(--space-3); }
+
+.artwork__rail {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  /* The trail line below is the position indicator; hide the native bar here
+     (scoped to the rail, so the document's custom scrollbar is untouched). */
+  scrollbar-width: none;
+}
+.artwork__rail::-webkit-scrollbar { display: none; }
+.artwork__rail.is-dragging { cursor: grabbing; }
+/* While dragging, suspend snap + selection: proximity snap otherwise yanks the
+   programmatic scrollLeft back every frame, so a mouse drag appears dead.
+   .is-free-scroll keeps snap off after a mouse drag until trackpad/wheel scroll. */
+.artwork__rail.is-dragging,
+.artwork__rail.is-free-scroll {
+  scroll-snap-type: none;
+  user-select: none;
+}
+.artwork__rail.is-dragging .art-canvas__frame { cursor: grabbing; }
+.artwork__rail.is-dragging .art-canvas__frame img { transition: none; }
+.artwork__rail:focus-visible { outline: 2px solid var(--accent-light); outline-offset: -2px; }
+
+.artwork__track {
+  list-style: none;
+  margin: 0;
+  display: flex;
+  gap: clamp(var(--space-3), 3vw, var(--space-5));
+  width: max-content;
+  padding-inline: var(--content-inset) var(--gutter);
+  padding-block: var(--space-2); /* breathing room for the canvas shadow */
+}
+
+.artwork__item {
+  flex: 0 0 auto;
+  height: var(--rail-h);
+  aspect-ratio: var(--ar); /* exact painting ratio → no crop, no layout shift */
+  scroll-snap-align: start;
+}
+
+.art-canvas { height: 100%; margin: 0; display: flex; flex-direction: column; }
+.art-canvas__frame {
+  position: relative;
+  flex: 1 1 auto;
+  min-height: 0;
+  /* button reset — this is a <button> so the painting opens in a lightbox */
+  appearance: none;
+  border: 0;
+  padding: 0;
+  width: 100%;
+  font: inherit;
+  color: inherit;
+  cursor: zoom-in;
+  display: block;
+  border-radius: 2px;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--cream) 5%, var(--forest-deep));
+  /* a thin warm frame line + a soft cast shadow so each piece reads as hung */
+  box-shadow:
+    0 0 0 1px var(--rule-on-dark),
+    0 16px 32px -16px rgba(0, 0, 0, 0.72);
+}
+.art-canvas__frame:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 3px;
+}
+.art-canvas__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* frame == painting ratio, so "cover" fills without cropping */
+  user-select: none;
+  -webkit-user-drag: none;
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.art-canvas:hover .art-canvas__frame img { transform: scale(1.03); }
+
+.art-canvas__cap {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  padding-top: var(--space-2);
+  min-width: 0; /* let the title shrink/ellipsize instead of overflowing */
+}
+.art-canvas__title {
+  min-width: 0;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1.3; /* was 1.05 — short line-boxes clipped descenders (y, g, p) */
+  color: var(--cream);
+  white-space: nowrap;
+  overflow: hidden; /* horizontal ellipsis only; the taller line-box clears legs */
+  text-overflow: ellipsis;
+}
+.art-canvas__note {
+  flex: none;
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-on-dark-soft);
+  opacity: 0.72;
+}
+
+/* Foot — the trail-progress indicator + the drag hint. gallery.js hides the
+   whole foot (.is-static) when the rail has nothing to scroll. */
+.artwork__foot {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.artwork__foot.is-static { display: none; }
+.artwork__progress {
+  position: relative;
+  display: block;
+  height: 2px;
+  width: min(360px, 52%);
+  background: var(--rule-on-dark);
+  border-radius: 999px;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  flex: none;
+}
+/* Invisible hit area — taller grab target without changing the 2px line. */
+.artwork__progress::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 1.25rem;
+}
+.artwork__progress.is-dragging { cursor: grabbing; }
+.artwork__progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: var(--accent-light); /* the spine's "walked" colour, on its side */
+  border-radius: 999px;
+  transition: width 0.12s linear;
+}
+.artwork__hint {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--ink-on-dark-soft);
+  opacity: 0.7;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .art-canvas__frame img { transition: none; }
+  .artwork__progress-fill { transition: none; }
+}
+
+/* ── Lightbox — a quiet full-view for a single painting ───────────────────
+   Built in JS, appended to <body>. Deliberately undecorated: a dark forest
+   field, the work centred and uncropped, its title beneath. Esc / click-away
+   / arrows; focus is trapped and returned to the opener on close. It reuses
+   the image the rail already loaded, so opening costs no new download. */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  grid-template-rows: 1fr auto;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  background: rgba(18, 27, 16, 0.94);
+  opacity: 0;
+  transition: opacity 0.24s ease;
+}
+.lightbox.is-open { opacity: 1; }
+.lightbox[hidden] { display: none; }
+
+.lightbox__stage {
+  grid-row: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+}
+.lightbox__img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 2px;
+  box-shadow: 0 24px 70px -20px rgba(0, 0, 0, 0.8);
+  transform: scale(0.985);
+  transition: transform 0.24s ease;
+}
+.lightbox.is-open .lightbox__img { transform: scale(1); }
+
+.lightbox__cap {
+  grid-row: 2;
+  display: flex;
+  align-items: baseline;
+  gap: 0.7em;
+  padding-top: var(--space-3);
+  text-align: center;
+}
+.lightbox__title {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  color: var(--cream);
+}
+.lightbox__count {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-on-dark-soft);
+  opacity: 0.7;
+}
+
+/* Controls — close + prev/next. Plain glyph buttons, accent-light on focus. */
+.lightbox__btn {
+  position: absolute;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--cream);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  font-size: 2rem;
+  line-height: 1;
+  opacity: 0.78;
+  transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.lightbox__btn:hover { opacity: 1; }
+.lightbox__btn:focus-visible {
+  outline: 2px solid var(--accent-light);
+  outline-offset: 2px;
+  opacity: 1;
+}
+.lightbox__close { top: clamp(0.5rem, 2vw, 1.25rem); right: clamp(0.5rem, 2vw, 1.25rem); }
+.lightbox__prev { left: clamp(0.25rem, 2vw, 1rem); top: 50%; transform: translateY(-50%); }
+.lightbox__next { right: clamp(0.25rem, 2vw, 1rem); top: 50%; transform: translateY(-50%); }
+.lightbox__prev:hover { transform: translateY(-50%) translateX(-3px); }
+.lightbox__next:hover { transform: translateY(-50%) translateX(3px); }
+@media (max-width: 560px) {
+  /* On a phone the chevrons crowd the work; swiping the rail already covers
+     browsing, so the lightbox is just open/close there. */
+  .lightbox__prev, .lightbox__next { display: none; }
+}
+body.lightbox-open { overflow: hidden; }
+
+@media (prefers-reduced-motion: reduce) {
+  .lightbox, .lightbox__img { transition: none; }
+  .lightbox__img { transform: none; }
+}
+
+/* ── Trails ───────────────────────────────────────────────────────────── */
+.trails__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .trails__grid { grid-template-columns: 1fr; gap: var(--space-4); }
+}
+.trails__copy .lead { margin-top: var(--space-3); }
+.trails__copy .trails__prose {
+  margin-top: var(--space-3);
+  color: var(--ink-soft);
+  max-width: var(--measure);
+}
+.activities {
+  list-style: none;
+  padding: 0;
+  margin-top: var(--space-4);
+  display: grid;
+  gap: 0;
+}
+.activity {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--rule);
+}
+.activity:last-child { border-bottom: 1px solid var(--rule); }
+.activity__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  letter-spacing: -0.005em;
+  color: var(--forest);
+}
+.activity__note { font-size: var(--fs-sm); color: var(--ink-soft); text-align: right; }
+.trails__media {
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  position: sticky;
+  top: calc(var(--nav-h) + var(--space-3));
+}
+@media (max-width: 860px) {
+  .trails__media { position: relative; top: auto; aspect-ratio: 4 / 3; }
+}
+.nearby { margin-top: var(--space-4); }
+.nearby__label {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  margin-bottom: var(--space-1);
+}
+.nearby__list { font-size: var(--fs-sm); color: var(--ink-soft); }
+
+/* ── Testimonials — quiet pull-quotes, not cards ──────────────────────── */
+.quotes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-5) var(--space-4);
+  margin-top: var(--space-5);
+}
+@media (max-width: 900px) {
+  .quotes { grid-template-columns: 1fr; max-width: 560px; gap: var(--space-4); }
+}
+.quote { display: flex; flex-direction: column; }
+.quote__mark {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  line-height: 0.5;
+  color: var(--accent-light);
+  margin-bottom: var(--space-2);
+}
+.quote__text {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  font-style: italic;
+  line-height: 1.34;
+  letter-spacing: -0.005em;
+  color: var(--forest-deep);
+  margin-bottom: var(--space-3);
+}
+.quote__by {
+  margin-top: auto;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+/* ── Contact ──────────────────────────────────────────────────────────── */
+.contact { text-align: center; }
+.contact .sec-head { margin-inline: auto; margin-bottom: var(--space-4); }
+.contact .sec-head .eyebrow { display: inline-flex; }
+.contact .lead { margin-inline: auto; }
+.contact__methods {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: var(--space-5);
+  margin-block: var(--space-5) var(--space-3);
+  flex-wrap: wrap;
+}
+.method { text-align: center; }
+.method__label {
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+  margin-bottom: var(--space-2);
+}
+.method__value {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  letter-spacing: -0.005em;
+  color: var(--forest-deep);
+  transition: color 0.18s ease;
+}
+.method__value:hover { color: var(--accent-dark); }
+.contact__divider { width: 1px; background: var(--rule); }
+@media (max-width: 520px) { .contact__divider { display: none; } }
+.contact__hosts {
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  color: var(--ink-soft);
+  margin-bottom: var(--space-4);
+}
+.directions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  font-size: var(--fs-sm);
+  color: var(--ink-soft);
+  margin-top: var(--space-3);
+}
+.directions__arrow { display: inline-block; transition: transform 0.2s ease; }
+.directions:hover { color: var(--forest-deep); }
+.directions:hover .directions__arrow { transform: translateX(4px); }
+
+/* ── Footer ───────────────────────────────────────────────────────────── */
+.footer { background: var(--forest-deep); color: var(--ink-on-dark-soft); padding-block: var(--space-4); }
+.footer__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+.footer .wordmark { color: var(--cream); font-size: var(--fs-display-sm); }
+.footer .wordmark em { color: var(--accent-light); }
+.footer__meta { font-size: var(--fs-sm); }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   Personal touches — scrollbar, trail-drift reveals, seasonal note + wash
+   Added as one coherent layer on top of the signature spine.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* ── Custom scrollbar ─────────────────────────────────────────────────────
+   Desktop chrome only, tuned to recede. Scoped to the document scroller so
+   any future inner-scrolling element keeps the native bar unless it opts in. */
+   @supports selector(::-webkit-scrollbar) {
+    html::-webkit-scrollbar { width: var(--sb-width); }
+    html::-webkit-scrollbar-track { background: var(--sb-track); }
+    html::-webkit-scrollbar-thumb {
+      background: var(--sb-thumb);
+      border-radius: 999px;
+      /* Inset the thumb with a track-coloured border so it reads as a slim pill
+         floating in the lane rather than filling it edge-to-edge. */
+      border: 3px solid var(--sb-track);
+      background-clip: padding-box;
+    }
+    html::-webkit-scrollbar-thumb:hover { background: var(--sb-thumb-hover); background-clip: padding-box; }
+  }
+  
+  /* Firefox ONLY — must not also apply in Chromium.
+     Chromium 121+ supports the standard scrollbar-color / scrollbar-width AND the
+     ::-webkit-scrollbar pseudos above. Applying both to <html> makes it straddle
+     two scrollbar implementations at once: the standard path has no :hover (so the
+     thumb-hover rule above silently never fires), and its width reservation stops
+     matching the painted 11px bar — the leftover gutter shows as a pale strip and
+     trips a stray horizontal scrollbar. Gating on `not selector(::-webkit-scrollbar)`
+     lands this in Firefox alone, where the pseudos don't exist and these standard
+     properties are the only way to theme the bar. */
+  @supports (scrollbar-color: auto) and (not selector(::-webkit-scrollbar)) {
+    html { scrollbar-color: var(--sb-thumb) var(--sb-track); scrollbar-width: auto; }
+  }
+
+/* ── Trail-drift reveals ───────────────────────────────────────────────────
+   Elements start lowered and shifted in from the right, then settle to rest as
+   the IntersectionObserver adds .is-revealed. The drift toward the spine's
+   left-hand lane makes this read as one intention with the trail, not a second
+   unrelated effect. State is toggled in JS; all motion lives here. */
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(var(--reveal-drift), var(--reveal-rise), 0);
+  transition:
+    opacity var(--reveal-dur) var(--reveal-ease),
+    transform var(--reveal-dur) var(--reveal-ease);
+  /* Per-child stagger: --reveal-i is set by reveal.js (0 for the first child,
+     and omitted/0 for ungrouped items). */
+  transition-delay: calc(var(--reveal-i, 0) * var(--reveal-stagger));
+  will-change: opacity, transform;
+}
+[data-reveal].is-revealed {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+/* Once settled, drop the compositor hint so we're not holding layers forever. */
+[data-reveal].is-revealed { will-change: auto; }
+
+/* Honest reduced-motion: no drift, no fade-in delay — everything is simply
+   present. (base.css already neutralises transition durations globally; this
+   makes the resting state explicit so nothing can be left stuck hidden.) */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Seasonal hero wash ────────────────────────────────────────────────────
+   A faint, season-tinted gradient laid over the existing hero scrim. The wash
+   variable is swapped by :root[data-season] in tokens.css; if JS never runs,
+   --season-wash stays transparent and the hero is unchanged. */
+.hero__scrim::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--season-wash);
+  pointer-events: none;
+  /* Fade the tint in once the season is known, so it doesn't pop on load. */
+  opacity: 0;
+  transition: opacity 1200ms ease;
+}
+:root[data-season] .hero__scrim::after { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .hero__scrim::after { transition: none; }
+}
+
+/* ── Seasonal note (Trails) ────────────────────────────────────────────────
+   One quiet line revealed by season.js for today's season. A Cormorant italic
+   aside in sage, set just under the prose — a whisper that real people live
+   here, not a banner. Ships [hidden]; only the matching line is shown. */
+.trails__season {
+  margin-top: var(--space-3);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: var(--fs-lead);
+  line-height: 1.5;
+  color: var(--forest);
+  max-width: var(--measure);
+  padding-left: var(--space-3);
+  border-left: 2px solid var(--sage);
+}
+.trails__season-line:not([hidden]) { display: block; }

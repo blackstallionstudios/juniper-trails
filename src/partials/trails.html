@@ -1,0 +1,39 @@
+<section class="section section--parchment" id="trails">
+  <div class="container">
+    <div class="trails__grid">
+      <div class="trails__copy" data-reveal-group>
+        <p class="eyebrow" data-reveal>{{trails.eyebrow}}</p>
+        <h2 class="h2" data-reveal>{{trails.heading}}</h2>
+        <p class="lead" data-reveal>{{trails.intro}}</p>
+        {{#if trails.activitiesBlurb}}
+        <p class="trails__prose" data-reveal>{{trails.activitiesBlurb}}</p>
+        {{/if}}
+        {{#if trails.seasons}}
+        <p class="trails__season" data-season-note hidden>
+          {{#if trails.seasons.spring}}<span class="trails__season-line" data-season="spring" hidden>{{trails.seasons.spring}}</span>{{/if}}
+          {{#if trails.seasons.summer}}<span class="trails__season-line" data-season="summer" hidden>{{trails.seasons.summer}}</span>{{/if}}
+          {{#if trails.seasons.fall}}<span class="trails__season-line" data-season="fall" hidden>{{trails.seasons.fall}}</span>{{/if}}
+          {{#if trails.seasons.winter}}<span class="trails__season-line" data-season="winter" hidden>{{trails.seasons.winter}}</span>{{/if}}
+        </p>
+        {{/if}}
+        <ul class="activities" data-reveal>
+          {{#each trails.activities}}
+          <li class="activity">
+            <span class="activity__name">{{this.name}}</span>
+            <span class="activity__note">{{this.note}}</span>
+          </li>
+          {{/each}}
+        </ul>
+        <div class="nearby" data-reveal>
+          <p class="nearby__label">{{trails.nearby.label}}</p>
+          <p class="nearby__list">
+            {{#each trails.nearby.places}}{{this}}{{#unless @last}} · {{/unless}}{{/each}}
+          </p>
+        </div>
+      </div>
+      <div class="ph trails__media" data-label="{{trails.image.alt}}" data-reveal>
+        {{#if trails.image.src}}<img src="{{trails.image.src}}" alt="{{trails.image.alt}}" />{{/if}}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+<section class="hero" id="top">
+  <div class="hero__slides">
+    {{#each hero.slides}}
+    <img
+      class="hero__slide{{#if @first}} is-active{{/if}}"
+      src="{{this.src}}"
+      alt="{{this.alt}}"
+      {{#unless @first}}loading="lazy"{{/unless}}
+    />
+    {{/each}}
+  </div>
+  <div class="hero__scrim"></div>
+  <div class="container hero__inner">
+    <p class="eyebrow eyebrow--on-dark">{{hero.eyebrow}}</p>
+    <h1 class="display-xl">{{hero.heading}}</h1>
+    <p class="lead lead--on-dark">{{hero.body}}</p>
+    <div class="hero__actions">
+      <a class="btn btn--on-dark" href="{{hero.ctaPrimary.href}}">{{hero.ctaPrimary.label}}</a>
+      <a class="btn btn--ghost" href="{{hero.ctaSecondary.href}}">{{hero.ctaSecondary.label}}</a>
+    </div>
+  </div>
+  <span class="hero__hint" aria-hidden="true">Scroll</span>
+</section>
