@@ -10,8 +10,9 @@
 //
 //  Lightbox:
 //    · Each canvas is a <button>; clicking/Enter opens the painting full-view.
-//    · A drag is not a click: if the pointer moved past a small threshold we
-//      swallow the click so dragging the rail never pops a lightbox.
+//    · Pointerdown on a canvas skips preventDefault so the click can fire; once
+//      movement crosses the drag threshold the rail takes over and the click is
+//      swallowed so dragging never pops the lightbox.
 //    · Esc / click-away / arrow keys; focus trapped, returned to the opener.
 //
 //  Everything degrades: no JS → the rail still scrolls (it's a real focusable
@@ -29,6 +30,17 @@ export function initGallery() {
   // ── Progress line ────────────────────────────────────────────────────
   const maxScroll = () => rail.scrollWidth - rail.clientWidth;
 
+  function clampScroll() {
+    const max = maxScroll();
+    if (max <= 0) {
+      if (rail.scrollLeft !== 0) rail.scrollLeft = 0;
+      return 0;
+    }
+    const left = Math.min(max, Math.max(0, rail.scrollLeft));
+    if (left !== rail.scrollLeft) rail.scrollLeft = left;
+    return left;
+  }
+
   function update() {
     const max = maxScroll();
     if (max <= 1) {
@@ -36,7 +48,8 @@ export function initGallery() {
       return;
     }
     foot?.classList.remove('is-static');
-    const p = Math.min(1, Math.max(0, rail.scrollLeft / max));
+    const left = clampScroll();
+    const p = left / max;
     if (fill) fill.style.width = (p * 100).toFixed(2) + '%';
   }
 
@@ -62,6 +75,7 @@ export function initGallery() {
   let startLeft = 0;
   let moved = 0;
   let suppressClick = false;
+  let clickTarget = null; // canvas button when pointerdown started on a painting
   const DRAG_THRESHOLD = 6; // px of travel that turns a click into a drag
 
   function suspendSnap() {
@@ -72,11 +86,28 @@ export function initGallery() {
     rail.style.scrollSnapType = '';
   }
 
+  function beginDrag(e) {
+    suspendSnap();
+    rail.classList.add('is-dragging');
+    rail.setPointerCapture?.(e.pointerId);
+  }
+
   function onPointerMove(e) {
     if (!down) return;
-    e.preventDefault();
     const dx = e.clientX - startX;
     moved = Math.max(moved, Math.abs(dx));
+
+    /* Pointerdown on a canvas must not preventDefault — that kills the button
+       click that opens the lightbox. Wait until movement crosses the threshold,
+       then take over as a rail drag (and swallow the eventual click). */
+    if (clickTarget && moved > DRAG_THRESHOLD) {
+      clickTarget = null;
+      suppressClick = true;
+      beginDrag(e);
+    }
+
+    if (!rail.classList.contains('is-dragging')) return;
+    e.preventDefault();
     rail.scrollLeft = startLeft - dx;
   }
 
@@ -84,8 +115,8 @@ export function initGallery() {
     if (!down) return;
     down = false;
     const wasDrag = moved > DRAG_THRESHOLD;
-    suppressClick = wasDrag;
-    const left = rail.scrollLeft;
+    if (wasDrag) suppressClick = true;
+    clickTarget = null;
 
     document.removeEventListener('pointermove', onPointerMove);
     document.removeEventListener('pointerup', endDrag);
@@ -94,28 +125,32 @@ export function initGallery() {
     suspendSnap();
     rail.classList.remove('is-dragging');
     if (wasDrag) {
-      rail.scrollLeft = left;
+      clampScroll();
       rail.classList.add('is-free-scroll');
     }
     try { rail.releasePointerCapture?.(e.pointerId); } catch (_) {}
 
     requestAnimationFrame(() => {
-      if (wasDrag) rail.scrollLeft = left;
+      if (wasDrag) clampScroll();
       else resumeSnap();
     });
   }
 
   rail.addEventListener('pointerdown', (e) => {
-    if (e.pointerType === 'touch') return; // touch keeps native momentum
+    if (e.pointerType === 'touch') return; // touch keeps native momentum + tap-to-open
     if (e.button !== 0) return;
-    e.preventDefault(); // stop button focus/activation from eating the drag
+
+    clickTarget = e.target.closest('[data-art-open]');
     down = true;
     moved = 0;
     startX = e.clientX;
     startLeft = rail.scrollLeft;
-    suspendSnap();
-    rail.classList.add('is-dragging');
-    rail.setPointerCapture?.(e.pointerId);
+
+    if (!clickTarget) {
+      e.preventDefault();
+      beginDrag(e);
+    }
+
     document.addEventListener('pointermove', onPointerMove);
     document.addEventListener('pointerup', endDrag);
     document.addEventListener('pointercancel', endDrag);
@@ -143,6 +178,7 @@ export function initGallery() {
       suspendSnap();
       rail.classList.add('is-free-scroll');
       rail.scrollLeft = p * max;
+      clampScroll();
       update();
     }
 
@@ -155,16 +191,15 @@ export function initGallery() {
     function endScrub(e) {
       if (!scrubbing) return;
       scrubbing = false;
-      const left = rail.scrollLeft;
       progress.classList.remove('is-dragging');
       rail.classList.remove('is-dragging');
       document.removeEventListener('pointermove', onScrubMove);
       document.removeEventListener('pointerup', endScrub);
       document.removeEventListener('pointercancel', endScrub);
       suspendSnap();
-      rail.scrollLeft = left;
+      clampScroll();
       try { progress.releasePointerCapture?.(e.pointerId); } catch (_) {}
-      requestAnimationFrame(() => { rail.scrollLeft = left; });
+      requestAnimationFrame(() => { clampScroll(); });
     }
 
     progress.addEventListener('pointerdown', (e) => {

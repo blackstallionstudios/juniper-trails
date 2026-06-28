@@ -108,6 +108,12 @@
   backdrop-filter: saturate(1.1) blur(10px);
   border-bottom-color: var(--rule);
 }
+/* Snap transparent the instant we're back over the hero — no slow fade that
+   reads as a cream strip while the hero is still catching up. */
+.nav:not(.is-stuck) {
+  transition: background-color 0.1s ease, box-shadow 0.1s ease,
+    border-color 0.1s ease;
+}
 .nav__inner {
   width: 100%;
   max-width: var(--container);
@@ -238,7 +244,15 @@
   color: var(--ink-on-dark);
   overflow: hidden;
 }
-.hero__slides { position: absolute; inset: 0; background: var(--placeholder); overflow: hidden; }
+.hero__slides {
+  position: absolute;
+  inset: 0;
+  /* Bleed 1px past the top so compositor rounding never exposes body cream. */
+  top: -1px;
+  height: calc(100% + 1px);
+  background: var(--placeholder);
+  overflow: hidden;
+}
 .hero__slide {
   position: absolute;
   inset: 0;
@@ -478,7 +492,9 @@
 .artwork {
   /* Align the bleeding rail's first canvas with the header text: mirror
      .container's left content edge at any viewport width. */
-  --content-inset: max(var(--gutter), calc((100vw - var(--container)) / 2 + var(--gutter)));
+  /* 100% not 100vw — vw includes the scrollbar gutter and causes a pale strip
+     beside the custom scrollbar plus a stray horizontal overflow. */
+  --content-inset: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter)));
   --rail-h: clamp(15rem, 30vw, 25rem); /* common hang height; widths follow each piece */
   overflow: hidden; /* clip the bleed so the page body never gains a scrollbar */
 }
@@ -489,6 +505,9 @@
   overflow-x: auto;
   overflow-y: hidden;
   scroll-snap-type: x proximity;
+  /* Match the track's inline padding so snap never yanks the first canvas flush
+     to the screen edge (scrollLeft 0 = aligned with the header column). */
+  scroll-padding-inline: var(--content-inset) var(--gutter);
   -webkit-overflow-scrolling: touch;
   cursor: grab;
   /* The trail line below is the position indicator; hide the native bar here
@@ -637,6 +656,10 @@
   opacity: 0.7;
   white-space: nowrap;
 }
+@media (max-width: 640px) {
+  .artwork__foot { flex-wrap: wrap; }
+  .artwork__hint { white-space: normal; }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .art-canvas__frame img { transition: none; }
@@ -647,31 +670,37 @@
    Built in JS, appended to <body>. Deliberately undecorated: a dark forest
    field, the work centred and uncropped, its title beneath. Esc / click-away
    / arrows; focus is trapped and returned to the opener on close. It reuses
-   the image the rail already loaded, so opening costs no new download. */
+   the image the rail already loaded, so opening costs no new download.
+
+   Layout: minmax(0, 1fr) on the stage row (not bare 1fr) so tall portraits
+   shrink instead of pushing the caption off-screen. */
 .lightbox {
   position: fixed;
   inset: 0;
   z-index: 200;
   display: grid;
-  grid-template-rows: 1fr auto;
-  place-items: center;
+  grid-template-rows: minmax(0, 1fr) auto;
   padding: clamp(1rem, 4vw, 3rem);
   background: rgba(18, 27, 16, 0.94);
   opacity: 0;
   transition: opacity 0.24s ease;
+  overflow: hidden;
 }
 .lightbox.is-open { opacity: 1; }
 .lightbox[hidden] { display: none; }
 
 .lightbox__stage {
   grid-row: 1;
-  display: grid;
-  place-items: center;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  height: 100%;
   min-height: 0;
+  overflow: hidden;
 }
 .lightbox__img {
+  display: block;
   max-width: 100%;
   max-height: 100%;
   width: auto;
@@ -686,9 +715,15 @@
 
 .lightbox__cap {
   grid-row: 2;
+  justify-self: center;
+  flex-shrink: 0;
   display: flex;
   align-items: baseline;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.7em;
+  width: 100%;
+  max-width: 100%;
   padding-top: var(--space-3);
   text-align: center;
 }
@@ -792,8 +827,11 @@ body.lightbox-open { overflow: hidden; }
   position: sticky;
   top: calc(var(--nav-h) + var(--space-3));
 }
+/* Landscape source, rider on the left — default center crop trims the subject. */
+.trails__media img { object-position: 22% center; }
 @media (max-width: 860px) {
   .trails__media { position: relative; top: auto; aspect-ratio: 4 / 3; }
+  .trails__media img { object-position: 18% center; }
 }
 .nearby { margin-top: var(--space-4); }
 .nearby__label {
@@ -903,7 +941,7 @@ body.lightbox-open { overflow: hidden; }
 .footer__meta { font-size: var(--fs-sm); }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   Personal touches — scrollbar, trail-drift reveals, seasonal note + wash
+   Personal touches — scrollbar, trail-drift reveals, seasonal note
    Added as one coherent layer on top of the signature spine.
    ═══════════════════════════════════════════════════════════════════════════ */
 
@@ -965,25 +1003,6 @@ body.lightbox-open { overflow: hidden; }
    makes the resting state explicit so nothing can be left stuck hidden.) */
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] { opacity: 1; transform: none; transition: none; }
-}
-
-/* ── Seasonal hero wash ────────────────────────────────────────────────────
-   A faint, season-tinted gradient laid over the existing hero scrim. The wash
-   variable is swapped by :root[data-season] in tokens.css; if JS never runs,
-   --season-wash stays transparent and the hero is unchanged. */
-.hero__scrim::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--season-wash);
-  pointer-events: none;
-  /* Fade the tint in once the season is known, so it doesn't pop on load. */
-  opacity: 0;
-  transition: opacity 1200ms ease;
-}
-:root[data-season] .hero__scrim::after { opacity: 1; }
-@media (prefers-reduced-motion: reduce) {
-  .hero__scrim::after { transition: none; }
 }
 
 /* ── Seasonal note (Trails) ────────────────────────────────────────────────

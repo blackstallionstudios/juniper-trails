@@ -107,18 +107,4 @@
   --reveal-dur: 720ms;
   --reveal-stagger: 90ms;     /* per-child delay within a group */
   --reveal-ease: cubic-bezier(0.22, 0.61, 0.36, 1); /* gentle ease-out, slight settle */
-
-  /* ── Seasonal wash (hero scrim tint) ────────────────────────────────── */
-  /* A faint colour cast over the hero, swapped by data-season on <html>.
-     Kept very low-opacity — the forest/parchment identity must hold. */
-  --season-wash: transparent; /* default; overridden per season below */
 }
-
-/* Seasonal hero tint — one faint wash per season, set on <html data-season>.
-   These are deliberately subtle (low-alpha gradients), a shift in mood rather
-   than a colour takeover. Spring: fresh green. Summer: warm gold. Fall: amber.
-   Winter: cool blue-grey. */
-:root[data-season='spring'] { --season-wash: linear-gradient(180deg, rgba(122, 158, 116, 0.20), rgba(122, 158, 116, 0) 55%); }
-:root[data-season='summer'] { --season-wash: linear-gradient(180deg, rgba(168, 196, 42, 0.16), rgba(133, 162, 10, 0) 55%); }
-:root[data-season='fall']   { --season-wash: linear-gradient(180deg, rgba(176, 122, 38, 0.22), rgba(120, 78, 24, 0) 58%); }
-:root[data-season='winter'] { --season-wash: linear-gradient(180deg, rgba(120, 140, 165, 0.22), rgba(90, 110, 140, 0) 60%); }

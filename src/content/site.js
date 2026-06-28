@@ -182,7 +182,7 @@ export default {
         intro:
             'Rocky Mountain lakes, a couple of animals, a still life, a cafe in ' +
             'Paris — bold, unhurried, and all his own. A few of them are here.',
-        hint: 'Drag to wander',
+        hint: 'Drag to wander · Click a painting to see it larger',
         pieces: [
             {
                 src: '/images/art-shadow-lake.jpg', title: 'Shadow Lake', note: '', w: 1600, h: 782,

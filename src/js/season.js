@@ -1,11 +1,9 @@
 // ─────────────────────────────────────────────────────────────────────────
 //  Seasonal touch — "real people live here."
 //
-//  Picks the season from the visitor's own clock and reflects it two ways:
-//    1. data-season on <html>, which drives a faint seasonal wash over the
-//       hero scrim (CSS). Kept subtle — the forest/parchment identity holds.
-//    2. The Trails note: the partial renders all four seasonal lines (so the
-//       output is static HTML); this reveals only the one for today's season.
+//  Picks the season from the visitor's own clock and reveals the matching
+//  Trails note. The partial renders all four seasonal lines (static HTML);
+//  this shows only the one for today's season.
 //
 //  No animation, no reduced-motion concerns — it's a content switch. Runs on
 //  every load so a July visitor sees summer and a January visitor sees winter,
@@ -38,7 +36,6 @@ function overrideSeason() {
 
 export function initSeason() {
   const season = overrideSeason() || seasonFor();
-  document.documentElement.setAttribute('data-season', season);
 
   // Reveal the matching Trails note, if present.
   const note = document.querySelector('[data-season-note]');

@@ -12,6 +12,9 @@ html {
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: calc(var(--nav-h) + var(--space-2));
   scroll-behavior: smooth;
+  overflow-x: clip; /* contain vw-based bleed beside the scrollbar gutter */
+  overscroll-behavior-y: none; /* no rubber-band gap above the hero at scroll top */
+  scrollbar-gutter: stable;
 }
 
 body {

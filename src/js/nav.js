@@ -8,16 +8,36 @@ export function initNav() {
   if (!nav) return;
 
   // ── Stuck state ───────────────────────────────────────────────────────
-  // Scroll-based and predictable: solid once the hero is essentially behind
-  // the bar. (An IntersectionObserver fires a frame late right at the
-  // hero/rooms boundary, which read as a flicker.)
+  // Solid once the hero is essentially behind the bar. Hysteresis on the way
+  // back up: stay solid until we're nearly at the top, so a fast fling doesn't
+  // turn the bar transparent while cream rooms is still in the viewport — that
+  // read as a blank strip between the header and the hero.
   let ticking = false;
+  let stuck = false;
+
   const update = () => {
-    const trigger = hero ? hero.offsetHeight - nav.offsetHeight : 8;
-    nav.classList.toggle('is-stuck', window.scrollY > trigger);
+    const stickAt = hero ? hero.offsetHeight - nav.offsetHeight : 8;
+    const unstickAt = nav.offsetHeight + 12;
+    const y = window.scrollY;
+
+    if (y <= unstickAt) {
+      stuck = false;
+    } else if (y > stickAt) {
+      stuck = true;
+    }
+    // Between unstickAt and stickAt: keep previous `stuck` (hysteresis band).
+
+    nav.classList.toggle('is-stuck', stuck);
     ticking = false;
   };
+
   const onScroll = () => {
+    // Near the top, update synchronously — rAF batches one frame late, which
+    // is exactly when the gap flashes on a fast scroll home.
+    if (window.scrollY <= nav.offsetHeight + 32) {
+      update();
+      return;
+    }
     if (!ticking) {
       ticking = true;
       requestAnimationFrame(update);

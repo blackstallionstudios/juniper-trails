@@ -11,6 +11,6 @@ import { initGallery } from './js/gallery.js';
 initNav();
 initHero();
 initSpine();
-initSeason(); // sets data-season on <html> + reveals today's Trails note
+initSeason(); // reveals today's Trails seasonal note
 initReveal(); // trail-drift settling as content enters view
 initGallery(); // artwork rail: trail-progress line + drag-to-scroll
