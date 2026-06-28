@@ -939,6 +939,12 @@ body.lightbox-open { overflow: hidden; }
 .footer .wordmark { color: var(--cream); font-size: var(--fs-display-sm); }
 .footer .wordmark em { color: var(--accent-light); }
 .footer__meta { font-size: var(--fs-sm); }
+.footer__meta a {
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+  text-decoration-color: color-mix(in srgb, var(--ink-on-dark-soft) 45%, transparent);
+}
+.footer__meta a:hover { color: var(--accent-light); text-decoration-color: currentColor; }
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Personal touches — scrollbar, trail-drift reveals, seasonal note

@@ -29,6 +29,11 @@ export default {
         directionsUrl:
             'https://www.google.com/maps/search/?api=1&query=Juniper+Trails+Bed+and+Breakfast+Williams+Lake+BC',
         year: '2026',
+        designCredit: {
+            prefix: 'Web design by',
+            name: 'Black Stallion Studios',
+            href: 'https://blackstallionstudios.ca',
+        },
     },
 
     // ── Primary navigation ────────────────────────────────────────────────
@@ -62,10 +67,10 @@ export default {
         ctaSecondary: { label: 'See the rooms', href: '#rooms' },
         // Full-bleed slideshow. Lead with the land, then the adventure, then home.
         slides: [
-            { src: '/images/A2-Sugar-Horse.jpg', alt: 'A kind horse in a green field looking up' },
-            { src: '/images/T1-ToDo-SteveAtFarwell-Bike.jpg', alt: 'A mountain biker riding below Farwell Canyon under a big prairie sky' },
             { src: '/images/M1-HouseView.JPG', alt: 'The Juniper Trails house and grounds on a clear Cariboo morning' },
             { src: '/images/P1-Parlour-ViewOfProperty.jpg', alt: 'Looking over the Juniper Trails grounds from the parlor on a beautiful morning' },
+            { src: '/images/T1-ToDo-SteveAtFarwell-Bike.jpg', alt: 'A mountain biker riding below Farwell Canyon under a big prairie sky' },
+            { src: '/images/A2-Sugar-Horse.jpg', alt: 'A kind horse in a green field looking up' },
         ],
     },
 
