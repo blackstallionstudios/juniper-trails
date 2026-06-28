@@ -31,15 +31,8 @@
     <div class="rooms__grid" data-reveal-group>
       {{#each rooms.items}}
       <article class="room" id="{{this.id}}" data-reveal>
-        <div class="room__media-stack">
-          <div class="ph room__media" data-label="{{this.name}}">
-            {{#if this.image.src}}<img src="{{this.image.src}}" alt="{{this.image.alt}}" />{{/if}}
-          </div>
-          {{#if this.bath}}
-          <figure class="ph room__bath" data-label="{{this.bath.label}}">
-            {{#if this.bath.src}}<img src="{{this.bath.src}}" alt="{{this.bath.alt}}" loading="lazy" decoding="async" />{{/if}}
-          </figure>
-          {{/if}}
+        <div class="ph room__media" data-label="{{this.name}}">
+          {{#if this.image.src}}<img src="{{this.image.src}}" alt="{{this.image.alt}}" />{{/if}}
         </div>
         <h3 class="h3 room__name">{{this.name}}</h3>
         <p class="room__meta">{{this.meta}}</p>
@@ -47,6 +40,29 @@
       </article>
       {{/each}}
     </div>
+    {{#if rooms.bath}}
+    <aside class="rooms__bath" data-reveal-group aria-labelledby="rooms-bath-heading">
+      <div class="rooms-bath">
+        <figure class="ph rooms-bath__media" data-label="{{rooms.bath.image.alt}}" data-reveal>
+          {{#if rooms.bath.image.src}}
+          <img
+            src="{{rooms.bath.image.src}}"
+            alt="{{rooms.bath.image.alt}}"
+            width="1600"
+            height="1067"
+            loading="lazy"
+            decoding="async"
+          />
+          {{/if}}
+        </figure>
+        <div class="rooms-bath__copy" data-reveal>
+          <p class="eyebrow">{{rooms.bath.eyebrow}}</p>
+          <h3 class="h3" id="rooms-bath-heading">{{rooms.bath.heading}}</h3>
+          <p class="rooms-bath__body">{{rooms.bath.body}}</p>
+        </div>
+      </div>
+    </aside>
+    {{/if}}
     {{#if rooms.shared}}
     <aside class="rooms__shared" data-reveal-group aria-labelledby="rooms-shared-heading">
       <div class="rooms-shared">

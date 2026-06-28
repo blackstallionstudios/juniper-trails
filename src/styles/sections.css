@@ -421,31 +421,14 @@
   .rooms__grid { grid-template-columns: 1fr; gap: var(--space-5); max-width: 520px; }
 }
 .room { display: flex; flex-direction: column; }
-/* Room photo + a smaller bath detail share a stack; the stack owns the
-   bottom margin so the two images read as a tight pair. */
-.room__media-stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
-  margin-bottom: var(--space-3);
-}
 .room__media {
   aspect-ratio: 4 / 5;
+  margin-bottom: var(--space-3);
   border-radius: var(--radius-lg);
   overflow: hidden;
 }
-/* The bath: a secondary landscape detail, smaller radius so it reads as a
-   companion to the room photo rather than a second hero. */
-.room__bath {
-  aspect-ratio: 3 / 2;
-  margin: 0;
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-.room__media img,
-.room__bath img { transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.room__media img { transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1); }
 .room:hover .room__media img { transform: scale(1.04); }
-.room:hover .room__bath img { transform: scale(1.03); }
 .room__name { margin-bottom: var(--space-1); }
 .room__meta {
   font-size: var(--fs-eyebrow);
@@ -457,6 +440,47 @@
   margin-bottom: var(--space-2);
 }
 .room__desc { color: var(--ink-soft); font-size: var(--fs-sm); line-height: 1.62; }
+
+/* The baths — one detail shot after the three-room grid. Image leads on the
+   left; copy on the right mirrors the namesakes beat above the grid. */
+.rooms__bath {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--rule);
+}
+.rooms-bath {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.36fr);
+  gap: var(--space-4) var(--space-5);
+  align-items: end;
+}
+.rooms-bath__copy .h3 { margin-top: var(--space-2); }
+.rooms-bath__body {
+  margin-top: var(--space-2);
+  color: var(--ink-soft);
+  font-size: var(--fs-sm);
+  line-height: 1.62;
+  max-width: 34ch;
+}
+.rooms-bath__media {
+  margin: 0;
+  aspect-ratio: 3 / 2;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+.rooms-bath__media img {
+  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.rooms-bath:hover .rooms-bath__media img { transform: scale(1.02); }
+@media (max-width: 900px) {
+  .rooms-bath {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+    align-items: start;
+    max-width: 520px;
+  }
+  .rooms-bath__body { max-width: none; }
+}
 
 /* The namesakes — three dogs before the three rooms. Image leads on the left;
    copy on the right mirrors the parlour beat below (which flips the layout). */

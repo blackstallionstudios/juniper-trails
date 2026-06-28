@@ -145,9 +145,6 @@ export default {
                     'to ask for by name when they come back.',
                 meta: 'Sleeps 2 · Ensuite',
                 image: { src: '/images/M2-MollysRest-GuestRoom.jpg', alt: "Molly's Rest — bed dressed in florals beside a bright window onto the grounds" },
-                // Secondary detail shot — the ensuite. Leave src empty to show the
-                // labelled placeholder until Steve sends a photo.
-                bath: { src: '', label: 'Ensuite', alt: "The ensuite bathroom in Molly's Rest" },
             },
             {
                 id: 'chases-place',
@@ -157,7 +154,6 @@ export default {
                     'singling out in their reviews and room to spread out and stay a while.',
                 meta: 'Sleeps 2 · The suite · Luxe bath',
                 image: { src: '/images/B2-ChasesPlace-GuestRoom.jpg', alt: "Chase's Place — a generous bed with a glass of wine set out on the side table" },
-                bath: { src: '', label: 'The bath', alt: "The luxe bathroom in Chase's Place — the one guests single out in reviews" },
             },
             {
                 id: 'the-dukes',
@@ -167,9 +163,24 @@ export default {
                     'clean lines, plenty of room, the country right outside the window.',
                 meta: 'Sleeps 2 · Full bath · Grounds view',
                 image: { src: '/images/B3-TheDukes-GuestRoom.jpg', alt: 'The Dukes — a calm, warm-toned room with a writing desk and grounds view' },
-                bath: { src: '', label: 'Full bath', alt: 'The full bathroom in The Dukes' },
             },
         ],
+        // One bath photo for the section — each room has its own, but a single
+        // detail shot keeps the grid from repeating the same beat three times.
+        bath: {
+            eyebrow: 'The baths',
+            heading: 'Each room, its own',
+            body:
+                'Ensuite in Molly\'s Rest, a full suite bath in Chase\'s Place, and a ' +
+                'full bath with a grounds view in The Dukes — all private, all kept ' +
+                'clean. Chase\'s is the one guests tend to mention first.',
+            image: {
+                src: '/images/Bathroom.jpg',
+                alt:
+                    'The bathroom in Chase\'s Place — dark vanity, white sink, fresh ' +
+                    'towels, and bear art above the toilet',
+            },
+        },
         // Shared common ground — the intro promises kitchen, living room, and
         // fire; this is the visual payoff after the three private rooms.
         shared: {
