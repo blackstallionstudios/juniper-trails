@@ -513,7 +513,19 @@
   border-top: 1px solid var(--rule);
   margin-bottom: var(--space-2);
 }
-.room__desc { color: var(--ink-soft); font-size: var(--fs-sm); line-height: 1.62; }
+.room__price {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1;
+  color: var(--ink);
+}
+.room__per {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+.room__desc { margin-top: var(--space-2); color: var(--ink-soft); font-size: var(--fs-sm); line-height: 1.62; }
 
 /* The baths — one detail shot after the three-room grid. Image leads on the
    left; copy on the right mirrors the namesakes beat above the grid. */
@@ -646,67 +658,22 @@
   .rooms-shared__media { order: -1; }
 }
 
-/* Rates — a quiet closing panel for the rooms section. A centred price list,
-   one row per room (name + bed/bath detail on the left, price on the right),
-   then the reserve CTA and a low-key link to the policy lightbox. */
+/* Rates strip — slim closing strip for the rooms section. Per-room prices sit
+   on the cards (.room__price); this carries the shared conditions, the reserve
+   CTA, and a low-key link to the policy lightbox. */
 .rooms__rates {
-  margin-top: var(--space-6);
-  padding-top: var(--space-5);
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
   border-top: 1px solid var(--rule);
 }
-.rates { max-width: 680px; margin-inline: auto; }
-.rates__head { text-align: center; }
-.rates__head .h3 { margin-top: var(--space-2); }
+.rates { max-width: 680px; margin-inline: auto; text-align: center; }
 .rates__note {
-  margin-top: var(--space-2);
   font-size: var(--fs-eyebrow);
   letter-spacing: 0.13em;
   text-transform: uppercase;
   color: var(--ink-faint);
 }
-.rates__list { list-style: none; margin: var(--space-4) 0 0; padding: 0; }
-.rate {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  column-gap: var(--space-3);
-  padding: var(--space-3) 0;
-  border-top: 1px solid var(--rule);
-}
-.rate:last-child { border-bottom: 1px solid var(--rule); }
-.rate__room {
-  grid-column: 1;
-  grid-row: 1;
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  line-height: 1.1;
-  color: var(--ink);
-}
-.rate__detail {
-  grid-column: 1;
-  grid-row: 2;
-  margin-top: var(--space-1);
-  font-size: var(--fs-eyebrow);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent-dark);
-}
-.rate__price {
-  grid-column: 2;
-  grid-row: 1 / span 2;
-  align-self: center;
-  justify-self: end;
-  font-family: var(--font-display);
-  font-size: var(--fs-h3);
-  color: var(--ink);
-  white-space: nowrap;
-}
-.rate__per {
-  font-family: var(--font-body);
-  font-size: var(--fs-eyebrow);
-  letter-spacing: 0.06em;
-  color: var(--ink-faint);
-}
-.rates__foot { margin-top: var(--space-3); text-align: center; }
+.rates__foot { margin-top: var(--space-2); }
 .rates__fine {
   margin-top: var(--space-1);
   font-size: var(--fs-sm);
@@ -714,7 +681,7 @@
   color: var(--ink-soft);
 }
 .rates__actions {
-  margin-top: var(--space-4);
+  margin-top: var(--space-3);
   display: flex;
   flex-direction: column;
   align-items: center;

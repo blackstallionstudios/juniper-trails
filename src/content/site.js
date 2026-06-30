@@ -136,6 +136,7 @@ export default {
                 name: "Molly's Rest",
                 desc: '', // awaiting Steve's copy — not in the brief
                 meta: 'Standard queen · Ensuite',
+                price: '$199',
                 image: { src: '/images/M2-MollysRest-GuestRoom.jpg', alt: "Molly's Rest — guest room with a bed beside a bright window onto the grounds" },
             },
             {
@@ -143,6 +144,7 @@ export default {
                 name: "Chase's Place",
                 desc: '', // awaiting Steve's copy — not in the brief
                 meta: 'Standard double · Ensuite',
+                price: '$189',
                 image: { src: '/images/B2-ChasesPlace-GuestRoom.jpg', alt: "Chase's Place — guest room with a double bed" },
             },
             {
@@ -150,6 +152,7 @@ export default {
                 name: 'The Dukes',
                 desc: '', // awaiting Steve's copy — not in the brief
                 meta: 'Deluxe queen · Ensuite',
+                price: '$209',
                 image: { src: '/images/B3-TheDukes-GuestRoom.jpg', alt: 'The Dukes — deluxe guest room with a view across the grounds' },
             },
         ],
@@ -186,22 +189,15 @@ export default {
                     'windows, with views over the property',
             },
         },
-        // ── Rates ─────────────────────────────────────────────────────────
-        //  Steve's published nightly rates (CAD, double occupancy), high → low.
-        //  The booking/cancellation detail lives in `policy` below and opens in
-        //  a lightbox from this panel — present, but never shouted.
+        // ── Rates strip ───────────────────────────────────────────────────
+        //  Per-room prices live on the room cards (items[].price). This is the
+        //  slim closing strip: the shared conditions, the reserve CTA, and the
+        //  link to the cancellation policy lightbox (policy.js).
         rates: {
-            eyebrow: 'Rates',
-            heading: 'Simple nightly rates',
             note: 'Per night · double occupancy · CAD',
-            items: [
-                { room: 'The Dukes', detail: 'Deluxe queen · ensuite', price: '$209' },
-                { room: "Molly's Rest", detail: 'Standard queen · ensuite', price: '$199' },
-                { room: "Chase's Place", detail: 'Standard double · ensuite', price: '$189' },
-            ],
             fineprint: [
                 'Checkout is 10 a.m. Government rates available, and we are glad to talk through longer stays.',
-                'Rates are subject to change without notice — especially the popular long weekends in July, August, and September.',
+                'Rates are subject to change without notice.',
             ],
             cta: { label: 'Call, text, or email to reserve', href: '#contact' },
             policyLink: 'Booking & cancellation policy',

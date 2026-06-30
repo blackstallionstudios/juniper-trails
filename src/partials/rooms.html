@@ -36,10 +36,27 @@
         </div>
         <h3 class="h3 room__name">{{this.name}}</h3>
         <p class="room__meta">{{this.meta}}</p>
+        {{#if this.price}}<p class="room__price">{{this.price}}<span class="room__per">/night</span></p>{{/if}}
         {{#if this.desc}}<p class="room__desc">{{this.desc}}</p>{{/if}}
       </article>
       {{/each}}
     </div>
+    {{#if rooms.rates}}
+    <aside class="rooms__rates" data-reveal-group aria-label="Rates and reservations">
+      <div class="rates" data-reveal>
+        {{#if rooms.rates.note}}<p class="rates__note">{{rooms.rates.note}}</p>{{/if}}
+        <div class="rates__foot">
+          {{#each rooms.rates.fineprint}}<p class="rates__fine">{{this}}</p>{{/each}}
+          <div class="rates__actions">
+            <a class="btn btn--primary" href="{{rooms.rates.cta.href}}">{{rooms.rates.cta.label}}</a>
+            {{#if rooms.policy}}
+            <button type="button" class="rates__policy-link" data-policy-open>{{rooms.rates.policyLink}}</button>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </aside>
+    {{/if}}
     {{#if rooms.bath}}
     <aside class="rooms__bath" data-reveal-group aria-labelledby="rooms-bath-heading">
       <div class="rooms-bath">
@@ -88,35 +105,6 @@
           />
           {{/if}}
         </figure>
-      </div>
-    </aside>
-    {{/if}}
-    {{#if rooms.rates}}
-    <aside class="rooms__rates" data-reveal-group aria-labelledby="rooms-rates-heading">
-      <div class="rates" data-reveal>
-        <div class="rates__head">
-          <p class="eyebrow">{{rooms.rates.eyebrow}}</p>
-          <h3 class="h3" id="rooms-rates-heading">{{rooms.rates.heading}}</h3>
-          {{#if rooms.rates.note}}<p class="rates__note">{{rooms.rates.note}}</p>{{/if}}
-        </div>
-        <ul class="rates__list">
-          {{#each rooms.rates.items}}
-          <li class="rate">
-            <span class="rate__room">{{this.room}}</span>
-            <span class="rate__detail">{{this.detail}}</span>
-            <span class="rate__price">{{this.price}}<span class="rate__per">/night</span></span>
-          </li>
-          {{/each}}
-        </ul>
-        <div class="rates__foot">
-          {{#each rooms.rates.fineprint}}<p class="rates__fine">{{this}}</p>{{/each}}
-          <div class="rates__actions">
-            <a class="btn btn--primary" href="{{rooms.rates.cta.href}}">{{rooms.rates.cta.label}}</a>
-            {{#if rooms.policy}}
-            <button type="button" class="rates__policy-link" data-policy-open>{{rooms.rates.policyLink}}</button>
-            {{/if}}
-          </div>
-        </div>
       </div>
     </aside>
     {{/if}}
