@@ -1,8 +1,16 @@
 <header class="nav" id="nav">
   <div class="nav__inner">
-    <a class="wordmark" href="#top" aria-label="{{site.name}} — home"
-      >{{site.nameLead}} <em>{{site.nameAccent}}</em></a
-    >
+    <a class="wordmark" href="#top" aria-label="{{site.name}} — home">
+      <img
+        class="wordmark__mark"
+        src="/images/logo-mark.png"
+        alt=""
+        width="36"
+        height="36"
+        decoding="async"
+      />
+      <span class="wordmark__text">{{site.nameLead}} <em>{{site.nameAccent}}</em></span>
+    </a>
     <nav class="nav__desktop" aria-label="Primary">
       <ul class="nav__links">
         {{#each nav}}
@@ -11,6 +19,14 @@
       </ul>
     </nav>
     <div class="nav__actions">
+      <a
+        class="nav__directions"
+        href="{{site.directionsUrl}}"
+        target="_blank"
+        rel="noopener"
+      >
+        {{site.directionsCta}}
+      </a>
       <a class="btn btn--primary nav__cta" href="{{site.phoneHref}}">
         <span class="nav__cta-full">Call {{site.phone}}</span>
         <span class="nav__cta-short" aria-hidden="true">Call</span>
@@ -32,6 +48,12 @@
       {{#each nav}}
       <li><a href="{{this.href}}">{{this.label}}</a></li>
       {{/each}}
+      <li class="nav__panel-maps">
+        <a href="{{site.directionsUrl}}" target="_blank" rel="noopener">
+          {{site.directionsCta}}
+          <span aria-hidden="true">&nearr;</span>
+        </a>
+      </li>
     </ul>
   </nav>
 </header>

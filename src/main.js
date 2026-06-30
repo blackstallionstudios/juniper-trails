@@ -7,6 +7,7 @@ import { initSpine } from './js/spine.js';
 import { initSeason } from './js/season.js';
 import { initReveal } from './js/reveal.js';
 import { initGallery } from './js/gallery.js';
+import { initPolicy } from './js/policy.js';
 
 initNav();
 initHero();
@@ -14,3 +15,4 @@ initSpine();
 initSeason(); // reveals today's Trails seasonal note
 initReveal(); // trail-drift settling as content enters view
 initGallery(); // artwork rail: trail-progress line + drag-to-scroll
+initPolicy(); // booking & cancellation policy lightbox (from the rates panel)

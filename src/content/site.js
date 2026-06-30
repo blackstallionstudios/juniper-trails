@@ -25,6 +25,8 @@ export default {
         emailHref: 'mailto:info@junipertrails.ca',
         hosts: 'Steve & Emily',
         directionsLabel: 'Dog Creek Road · 15 minutes from downtown Williams Lake',
+        directionsCta: 'Get directions',
+        directionsWaypoint: 'Find the turnoff',
         // On Dog Creek Road, between Williams Lake and Springhouse.
         directionsUrl:
             'https://www.google.com/maps/search/?api=1&query=Juniper+Trails+Bed+and+Breakfast+Williams+Lake+BC',
@@ -61,8 +63,8 @@ export default {
 
     // ── Hero ──────────────────────────────────────────────────────────────
     hero: {
-        eyebrow: 'A rest stop for adventurers · Williams Lake, BC',
-        heading: 'Stay where the trails begin.',
+        eyebrow: 'Discover Juniper Trails Bed & Breakfast · Williams Lake, BC',
+        heading: 'A rest stop for all adventurers.',
         body:
             'A three-room bed & breakfast on twenty-seven acres of Cariboo stillness - friendly animals, and thoughtful, welcoming hospitality.',
         ctaPrimary: { label: 'Plan your stay', href: '#contact' },
@@ -86,19 +88,11 @@ export default {
     //  things; both intentionally named for what they are.
     hosts: {
         eyebrow: 'Your hosts',
-        heading: "We're Steve and Emily",
+        heading: "Steve & Emily",
         lead:
-            "Juniper Trails isn't a place we run from town. It's the twenty-seven " +
-            "acres we live on — and when you stay, you're staying in it with us.",
+            "27 stunning acres, friendly animals, and thoughtful, welcoming hospitality... And with so many things to see and do, make sure to stay awhile!",
         body: [
-            "We're both runners and walkers, happiest with a cap on and a trail " +
-            'underfoot — which is most of why we landed out here in the first ' +
-            "place. The dogs will greet you before we do, and the coffee's usually " +
-            'already on.',
-            "There's no front desk and no script. Just a real home with the door " +
-            'open, a quiet stretch of the Cariboo to wander, and two people who ' +
-            'know every trail, lake and back road worth your time — and are glad ' +
-            'to point you at them.',
+            "",
         ],
         signature: 'Steve & Emily',
         signatureNote: 'and the dogs',
@@ -111,16 +105,16 @@ export default {
     },
 
     // ── Rooms ─────────────────────────────────────────────────────────────
-    //  Each room is named for a family dog — Molly, Chase, and Duke. It's a
-    //  small thing guests notice, and it's the truest line about who runs this
-    //  place.
+    //  Copy follows Steve's brief (B&B copy.md). The room names are real, but
+    //  the brief gives no per-room descriptions or the "named for a dog" story
+    //  — those await Steve (see `namesakes` and the empty `items[].desc`).
     rooms: {
         eyebrow: 'Three rooms',
-        heading: 'Three rooms, each named for a dog',
+        heading: 'Built with your comfort in mind',
         intro:
-            'No two are alike, and every one of them is named for a dog the family ' +
-            'has loved. Each opens onto the property; all of them share the kitchen, ' +
-            'the living room, and the fire outside.',
+            'Relax and enjoy the peaceful atmosphere and amenities found in our ' +
+            'three well finished guest rooms, each with their own spacious ensuite ' +
+            'bathroom.',
         // The three dogs the rooms honour — shown before the grid so the
         // naming story lands before guests read Molly, Chase, and Duke.
         namesakes: {
@@ -140,29 +134,23 @@ export default {
             {
                 id: 'mollys-rest',
                 name: "Molly's Rest",
-                desc:
-                    'A warm, simple room with an ensuite to match — the one guests tend ' +
-                    'to ask for by name when they come back.',
-                meta: 'Sleeps 2 · Ensuite',
-                image: { src: '/images/M2-MollysRest-GuestRoom.jpg', alt: "Molly's Rest — bed dressed in florals beside a bright window onto the grounds" },
+                desc: '', // awaiting Steve's copy — not in the brief
+                meta: 'Standard queen · Ensuite',
+                image: { src: '/images/M2-MollysRest-GuestRoom.jpg', alt: "Molly's Rest — guest room with a bed beside a bright window onto the grounds" },
             },
             {
                 id: 'chases-place',
                 name: "Chase's Place",
-                desc:
-                    'The suite. The largest of the three, with a bathroom guests keep ' +
-                    'singling out in their reviews and room to spread out and stay a while.',
-                meta: 'Sleeps 2 · The suite · Luxe bath',
-                image: { src: '/images/B2-ChasesPlace-GuestRoom.jpg', alt: "Chase's Place — a generous bed with a glass of wine set out on the side table" },
+                desc: '', // awaiting Steve's copy — not in the brief
+                meta: 'Standard double · Ensuite',
+                image: { src: '/images/B2-ChasesPlace-GuestRoom.jpg', alt: "Chase's Place — guest room with a double bed" },
             },
             {
                 id: 'the-dukes',
                 name: 'The Dukes',
-                desc:
-                    'A full bedroom and full bath with a clear view across the grounds — ' +
-                    'clean lines, plenty of room, the country right outside the window.',
-                meta: 'Sleeps 2 · Full bath · Grounds view',
-                image: { src: '/images/B3-TheDukes-GuestRoom.jpg', alt: 'The Dukes — a calm, warm-toned room with a writing desk and grounds view' },
+                desc: '', // awaiting Steve's copy — not in the brief
+                meta: 'Deluxe queen · Ensuite',
+                image: { src: '/images/B3-TheDukes-GuestRoom.jpg', alt: 'The Dukes — deluxe guest room with a view across the grounds' },
             },
         ],
         // One bath photo for the section — each room has its own, but a single
@@ -171,46 +159,98 @@ export default {
             eyebrow: 'The baths',
             heading: 'Each room, its own',
             body:
-                'Ensuite in Molly\'s Rest, a full suite bath in Chase\'s Place, and a ' +
-                'full bath with a grounds view in The Dukes — all private, all kept ' +
-                'clean. Chase\'s is the one guests tend to mention first.',
+                'Every room has its own spacious, private ensuite — no sharing down ' +
+                'the hall, ever. They are kept spotless, stocked with fresh towels, ' +
+                'and finished with the same care as the rest of the house.',
             image: {
                 src: '/images/Bathroom.jpg',
                 alt:
-                    'The bathroom in Chase\'s Place — dark vanity, white sink, fresh ' +
-                    'towels, and bear art above the toilet',
+                    'One of the private guest ensuites — dark vanity, white sink, ' +
+                    'fresh towels, and bear art on the wall',
             },
         },
         // Shared common ground — the intro promises kitchen, living room, and
         // fire; this is the visual payoff after the three private rooms.
         shared: {
-            eyebrow: 'Beyond the bedroom',
-            heading: 'The parlour, and the rest',
+            eyebrow: 'The parlour',
+            heading: 'Enjoy the atmosphere of the Parlour',
             body:
-                'The bedrooms are yours alone. The kitchen, this room, and the fire ' +
-                'outside belong to everyone — where breakfast lingers, books get left ' +
-                'open, and the valley stays in view all day.',
-            amenities: ['Kitchen', 'The parlour', 'Fire outside'],
+                'With ample breakfast facilities, a well equipped kitchenette, comfy ' +
+                'lounge seating, massive stone fireplace and amazing views over the ' +
+                'property.',
+            amenities: ['Kitchenette', 'Stone fireplace', 'Lounge & valley views'],
             image: {
                 src: '/images/P3-Parlour-ViewOfParlour.jpg',
                 alt:
-                    'The parlour — leather sofas and sunflowers by tall windows, ' +
-                    'green fields and evergreens beyond',
+                    'The parlour — lounge seating and a stone fireplace by tall ' +
+                    'windows, with views over the property',
             },
+        },
+        // ── Rates ─────────────────────────────────────────────────────────
+        //  Steve's published nightly rates (CAD, double occupancy), high → low.
+        //  The booking/cancellation detail lives in `policy` below and opens in
+        //  a lightbox from this panel — present, but never shouted.
+        rates: {
+            eyebrow: 'Rates',
+            heading: 'Simple nightly rates',
+            note: 'Per night · double occupancy · CAD',
+            items: [
+                { room: 'The Dukes', detail: 'Deluxe queen · ensuite', price: '$209' },
+                { room: "Molly's Rest", detail: 'Standard queen · ensuite', price: '$199' },
+                { room: "Chase's Place", detail: 'Standard double · ensuite', price: '$189' },
+            ],
+            fineprint: [
+                'Checkout is 10 a.m. Government rates available, and we are glad to talk through longer stays.',
+                'Rates are subject to change without notice — especially the popular long weekends in July, August, and September.',
+            ],
+            cta: { label: 'Call, text, or email to reserve', href: '#contact' },
+            policyLink: 'Booking & cancellation policy',
+        },
+        // ── Booking & cancellation policy ──────────────────────────────────
+        //  Shown in a lightbox opened from the rates panel (policy.js). Steve's
+        //  run-on paragraph, broken into plain groups so guests can scan it.
+        policy: {
+            eyebrow: 'Before you book',
+            title: 'Booking & cancellation',
+            intro:
+                'Reserving is a quick call, text, or email — here is how deposits ' +
+                'and changes work once your dates are set.',
+            groups: [
+                {
+                    heading: 'Deposits',
+                    items: [
+                        'Stays of 1–2 nights: full payment for the stay is due at the time of booking.',
+                        'Stays of 3 nights or more: a 50% deposit is due at the time of booking.',
+                    ],
+                },
+                {
+                    heading: 'Cancellations',
+                    items: [
+                        '14 or more days before arrival: a $50 cancellation fee applies.',
+                        'Within 14 days of arrival: the full reserved stay is charged.',
+                    ],
+                },
+                {
+                    heading: 'Good to know',
+                    items: [
+                        'Checkout is 10 a.m.',
+                        'Rates are based on double occupancy, in Canadian dollars.',
+                        'Government rates available; ask us about longer stays.',
+                    ],
+                },
+            ],
+            contactNote:
+                'Questions about any of this? Call, text, or email — we are glad to help.',
         },
     },
 
     // ── Breakfast ─────────────────────────────────────────────────────────
     breakfast: {
         eyebrow: 'The table',
-        heading: 'Breakfast is the whole point, mostly',
+        heading: 'A healthy breakfast',
         body: [
-            'Steve cooks. It is homemade, it changes with whatever is good that week, ' +
-            'and the muffins and scones come out of the oven the same morning you eat them — ' +
-            'often with raspberries from his own garden.',
-            'There is good coffee on, a spread of fruit and eggs, and a view of the ' +
-            'valley out the window. You take it unhurried, usually with a dog nearby ' +
-            'hoping you drop something.',
+            'Get a great start to your day with homemade muffins and scones, tasty ' +
+            'egg dishes, fresh fruit, yogurt, breads... and of course, lots of coffee.',
         ],
         // Lead photo carries the place: coffee, fresh muffins, and the hills beyond.
         image: { src: '/images/BR1-MuffinsOnTable.jpg', alt: 'A pot of coffee and a plate of fresh muffins on the table, the Cariboo hills through the window behind' },
@@ -218,6 +258,7 @@ export default {
         gallery: [
             { src: '/images/BR2-Breakfast-Scones.jpg', alt: 'A warm berry scone, just out of the oven' },
             { src: '/images/BR3-Breakfast-Omelet.jpg', alt: "One of Steve's omelettes, plated with fresh strawberries" },
+            { src: '/images/Food-4.jpg', alt: 'Fresh-baked muffins with a dish of homemade jam' },
         ],
     },
 
@@ -327,34 +368,37 @@ export default {
         },
     },
 
-    // ── Testimonials ──────────────────────────────────────────────────────
-    //  ⚠ PLACEHOLDER COPY — paraphrased, not lifted. Replace with real,
-    //  permission-cleared guest quotes before launch. Do NOT paste verbatim
-    //  text from TripAdvisor/Google without permission.
+    // ── Guests / reviews ────────────────────────────────────────────────
+    //  No on-site quotes — we point straight at the real listings instead, so
+    //  every word is the guests' own and nothing needs permission-clearing.
+    //  Key stays `testimonials` (the #guests section); the partial renders
+    //  `platforms`, not `items`.
+    //
+    //  Links are stripped to essentials: tracking params removed. The Google
+    //  URL keeps its `!1b1` flag so it opens on the reviews view.
     testimonials: {
         eyebrow: 'Guests',
-        heading: 'What people say after',
-        items: [
+        heading: "Don't take our word for it",
+        intro:
+            'Years of guests have written up their stays — read them where they ' +
+            'left them, then come back and add your own.',
+        platforms: [
             {
-                quote:
-                    'The kind of quiet you forget exists until you have it again. We came ' +
-                    'for one night and stayed three.',
-                author: 'Guest',
-                source: 'Placeholder — replace before launch',
+                name: 'Google',
+                blurb: 'Guest reviews on our Google Maps listing.',
+                cta: 'Read on Google',
+                href:
+                    'https://www.google.com/maps/place/Juniper+Trails+Bed+and+Breakfast/' +
+                    '@52.0668526,-122.0883664,659m/data=!3m1!1e3!4m11!3m10' +
+                    '!1s0x5380989e1cb1ee13:0x13ea726f84457aa8!5m2!4m1!1i2!8m2' +
+                    '!3d52.0668526!4d-122.0883664!9m1!1b1!16s%2Fg%2F1tdr2_4h',
             },
             {
-                quote:
-                    'Steve and Emily make you feel like family by the second morning, and ' +
-                    'the breakfast alone is worth the drive.',
-                author: 'Guest',
-                source: 'Placeholder — replace before launch',
-            },
-            {
-                quote:
-                    'Clean, spacious, a real view, and a dog to greet you. Exactly the ' +
-                    'break from the highway we needed.',
-                author: 'Guest',
-                source: 'Placeholder — replace before launch',
+                name: 'Tripadvisor',
+                blurb: 'Traveller reviews and ratings on Tripadvisor.',
+                cta: 'Read on Tripadvisor',
+                href:
+                    'https://www.tripadvisor.ca/Hotel_Review-g154925-d2520972-Reviews-Juniper_Trails_Bed_and_Breakfast-Williams_Lake_Cariboo_British_Columbia.html',
             },
         ],
     },
@@ -364,7 +408,7 @@ export default {
         eyebrow: 'Visit',
         heading: 'Come stay a while',
         body:
-            'There is no booking form here, on purpose. Call or email Steve and Emily ' +
-            'and they will sort out dates, questions, and anything else with you directly.',
+            'Call, text, or email to reserve. Steve and Emily will sort out dates, ' +
+            'questions, and anything else with you directly.',
     },
 };

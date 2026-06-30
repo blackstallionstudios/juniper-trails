@@ -36,7 +36,7 @@
         </div>
         <h3 class="h3 room__name">{{this.name}}</h3>
         <p class="room__meta">{{this.meta}}</p>
-        <p class="room__desc">{{this.desc}}</p>
+        {{#if this.desc}}<p class="room__desc">{{this.desc}}</p>{{/if}}
       </article>
       {{/each}}
     </div>
@@ -91,5 +91,57 @@
       </div>
     </aside>
     {{/if}}
+    {{#if rooms.rates}}
+    <aside class="rooms__rates" data-reveal-group aria-labelledby="rooms-rates-heading">
+      <div class="rates" data-reveal>
+        <div class="rates__head">
+          <p class="eyebrow">{{rooms.rates.eyebrow}}</p>
+          <h3 class="h3" id="rooms-rates-heading">{{rooms.rates.heading}}</h3>
+          {{#if rooms.rates.note}}<p class="rates__note">{{rooms.rates.note}}</p>{{/if}}
+        </div>
+        <ul class="rates__list">
+          {{#each rooms.rates.items}}
+          <li class="rate">
+            <span class="rate__room">{{this.room}}</span>
+            <span class="rate__detail">{{this.detail}}</span>
+            <span class="rate__price">{{this.price}}<span class="rate__per">/night</span></span>
+          </li>
+          {{/each}}
+        </ul>
+        <div class="rates__foot">
+          {{#each rooms.rates.fineprint}}<p class="rates__fine">{{this}}</p>{{/each}}
+          <div class="rates__actions">
+            <a class="btn btn--primary" href="{{rooms.rates.cta.href}}">{{rooms.rates.cta.label}}</a>
+            {{#if rooms.policy}}
+            <button type="button" class="rates__policy-link" data-policy-open>{{rooms.rates.policyLink}}</button>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </aside>
+    {{/if}}
   </div>
+
+  {{#if rooms.policy}}
+  <div class="policy" data-policy hidden>
+    <div class="policy__backdrop" data-policy-close></div>
+    <div class="policy__panel" role="dialog" aria-modal="true" aria-labelledby="policy-title">
+      <button type="button" class="policy__close" data-policy-close aria-label="Close">&times;</button>
+      <p class="eyebrow">{{rooms.policy.eyebrow}}</p>
+      <h2 class="policy__title h3" id="policy-title">{{rooms.policy.title}}</h2>
+      {{#if rooms.policy.intro}}<p class="policy__intro">{{rooms.policy.intro}}</p>{{/if}}
+      <div class="policy__groups">
+        {{#each rooms.policy.groups}}
+        <div class="policy__group">
+          <h3 class="policy__group-heading">{{this.heading}}</h3>
+          <ul class="policy__items">
+            {{#each this.items}}<li>{{this}}</li>{{/each}}
+          </ul>
+        </div>
+        {{/each}}
+      </div>
+      {{#if rooms.policy.contactNote}}<p class="policy__note">{{rooms.policy.contactNote}}</p>{{/if}}
+    </div>
+  </div>
+  {{/if}}
 </section>

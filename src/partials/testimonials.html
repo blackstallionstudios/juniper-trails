@@ -3,14 +3,18 @@
     <div class="sec-head" data-reveal-group>
       <p class="eyebrow" data-reveal>{{testimonials.eyebrow}}</p>
       <h2 class="h2" data-reveal>{{testimonials.heading}}</h2>
+      {{#if testimonials.intro}}<p class="lead" data-reveal>{{testimonials.intro}}</p>{{/if}}
     </div>
-    <div class="quotes" data-reveal-group>
-      {{#each testimonials.items}}
-      <figure class="quote" data-reveal>
-        <span class="quote__mark" aria-hidden="true">&ldquo;</span>
-        <blockquote class="quote__text">{{this.quote}}</blockquote>
-        <figcaption class="quote__by">{{this.author}} · {{this.source}}</figcaption>
-      </figure>
+    <div class="reviews" data-reveal-group>
+      {{#each testimonials.platforms}}
+      <a class="review-card" href="{{this.href}}" target="_blank" rel="noopener" data-reveal>
+        <span class="review-card__icon" aria-hidden="true">&#9733;</span>
+        <span class="review-card__name">{{this.name}}</span>
+        <span class="review-card__blurb">{{this.blurb}}</span>
+        <span class="review-card__cta">
+          {{this.cta}}<span class="review-card__arrow" aria-hidden="true">&rarr;</span>
+        </span>
+      </a>
       {{/each}}
     </div>
   </div>

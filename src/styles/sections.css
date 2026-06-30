@@ -124,6 +124,9 @@
   justify-content: space-between;
 }
 .wordmark {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
   font-family: var(--font-display);
   font-size: var(--fs-display-sm);
   font-weight: 600;
@@ -133,6 +136,16 @@
   transition: color 0.25s ease;
 }
 .wordmark em { font-style: normal; color: var(--accent-light); }
+/* The juniper-tree mark (cropped from the full logo). Square green tile with
+   a white tree — reads on the dark hero and the cream stuck nav alike. */
+.wordmark__mark {
+  flex: none;
+  display: block;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-lg);
+}
+.wordmark:hover .wordmark__mark { opacity: 0.92; }
 .nav.is-stuck .wordmark { color: var(--forest-deep); }
 .nav.is-stuck .wordmark em { color: var(--accent-dark); }
 
@@ -167,6 +180,28 @@
 .nav.is-stuck .nav__links a::after { background: var(--accent-dark); }
 
 .nav__actions { display: flex; align-items: center; gap: var(--space-2); }
+.nav__directions {
+  font-size: var(--fs-sm);
+  font-weight: 500;
+  color: var(--ink-on-dark);
+  padding: 0.25em 0;
+  position: relative;
+  transition: color 0.2s ease;
+}
+.nav__directions::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1.5px;
+  background: var(--accent-light);
+  transition: width 0.2s ease;
+}
+.nav__directions:hover::after { width: 100%; }
+.nav.is-stuck .nav__directions { color: var(--ink-soft); }
+.nav.is-stuck .nav__directions:hover { color: var(--forest-deep); }
+.nav.is-stuck .nav__directions::after { background: var(--accent-dark); }
 .nav__cta-short { display: none; }
 
 .nav__toggle {
@@ -225,10 +260,28 @@
   border-bottom: 1px solid var(--rule);
 }
 .nav__panel li:last-child a { border-bottom: 0; }
+.nav__panel-maps a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--forest-deep);
+  background: color-mix(in srgb, var(--accent) 12%, var(--cream));
+  border: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+  border-radius: var(--radius);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 28%, transparent);
+}
 
 @media (max-width: 760px) {
   .nav__desktop { display: none; }
   .nav__toggle { display: inline-flex; }
+  .nav__directions { display: none; }
   .nav__cta { padding: 0.6em 1em; }
   .nav__cta-full { display: none; }
   .nav__cta-short { display: inline; }
@@ -309,6 +362,27 @@
   font-weight: 500;
 }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-2); }
+
+/* Directions — editorial caption below the CTAs, same voice as the hero eyebrow. */
+.hero__loc {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5em 1.25em;
+  margin-top: var(--space-4);
+  text-decoration: none;
+  color: inherit;
+}
+.hero__loc-label { margin-bottom: 0; }
+.hero__loc-route {
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.35;
+  color: var(--ink-on-dark-soft);
+  transition: color 0.2s ease;
+}
+.hero__loc:hover .hero__loc-route { color: var(--cream); }
 
 /* Scroll hint, bottom-right so it never fights the bottom-left lockup. */
 .hero__hint {
@@ -572,6 +646,208 @@
   .rooms-shared__media { order: -1; }
 }
 
+/* Rates — a quiet closing panel for the rooms section. A centred price list,
+   one row per room (name + bed/bath detail on the left, price on the right),
+   then the reserve CTA and a low-key link to the policy lightbox. */
+.rooms__rates {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--rule);
+}
+.rates { max-width: 680px; margin-inline: auto; }
+.rates__head { text-align: center; }
+.rates__head .h3 { margin-top: var(--space-2); }
+.rates__note {
+  margin-top: var(--space-2);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.rates__list { list-style: none; margin: var(--space-4) 0 0; padding: 0; }
+.rate {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  column-gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-top: 1px solid var(--rule);
+}
+.rate:last-child { border-bottom: 1px solid var(--rule); }
+.rate__room {
+  grid-column: 1;
+  grid-row: 1;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1.1;
+  color: var(--ink);
+}
+.rate__detail {
+  grid-column: 1;
+  grid-row: 2;
+  margin-top: var(--space-1);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+.rate__price {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  align-self: center;
+  justify-self: end;
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.rate__per {
+  font-family: var(--font-body);
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.06em;
+  color: var(--ink-faint);
+}
+.rates__foot { margin-top: var(--space-3); text-align: center; }
+.rates__fine {
+  margin-top: var(--space-1);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.rates__actions {
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+}
+.rates__policy-link {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-size: var(--fs-sm);
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--rule);
+  transition: color 0.18s ease, text-decoration-color 0.18s ease;
+}
+.rates__policy-link:hover {
+  color: var(--accent-dark);
+  text-decoration-color: currentColor;
+}
+
+/* Policy lightbox — a light parchment card over a dimmed field. Text-first
+   (unlike the image lightbox in the artwork section), centred, scrollable on
+   short screens. Open/close + focus trap handled in policy.js. */
+.policy {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  display: grid;
+  place-items: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+.policy[hidden] { display: none; }
+.policy.is-open { opacity: 1; }
+.policy__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(18, 27, 16, 0.6);
+}
+.policy__panel {
+  position: relative;
+  width: min(560px, 100%);
+  max-height: 100%;
+  overflow-y: auto;
+  background: var(--cream);
+  border-radius: var(--radius-lg);
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  box-shadow: 0 30px 80px -24px rgba(0, 0, 0, 0.55);
+  transform: translateY(8px) scale(0.99);
+  transition: transform 0.22s ease;
+}
+.policy.is-open .policy__panel { transform: none; }
+.policy__close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--ink-soft);
+  transition: color 0.18s ease;
+}
+.policy__close:hover { color: var(--ink); }
+.policy__title { margin-top: var(--space-1); }
+.policy__intro {
+  margin-top: var(--space-2);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.policy__groups {
+  margin-top: var(--space-3);
+  display: grid;
+  gap: var(--space-3);
+}
+.policy__group-heading {
+  margin-bottom: var(--space-1);
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+.policy__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+.policy__items li {
+  position: relative;
+  padding-left: 1.1em;
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.policy__items li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.62em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.policy__note {
+  margin-top: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--rule);
+  font-size: var(--fs-sm);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+body.policy-open { overflow: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .policy, .policy__panel { transition: none; }
+  .policy__panel { transform: none; }
+}
+
 /* ── Breakfast (dark, split, with a small supporting cluster) ─────────── */
 .breakfast__grid {
   display: grid;
@@ -588,7 +864,7 @@
 .breakfast__p { color: var(--ink-on-dark-soft); font-size: var(--fs-body); line-height: var(--lh-body); }
 .breakfast__gallery {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: var(--space-2);
   margin-top: var(--space-4);
 }
@@ -957,39 +1233,145 @@ body.lightbox-open { overflow: hidden; }
 }
 .nearby__list { font-size: var(--fs-sm); color: var(--ink-soft); }
 
-/* ── Testimonials — quiet pull-quotes, not cards ──────────────────────── */
-.quotes {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-5) var(--space-4);
+/* Turnoff — closing row of the trails register; a fork where the road splits. */
+.turnoff {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
   margin-top: var(--space-5);
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  text-decoration: none;
+  color: inherit;
 }
-@media (max-width: 900px) {
-  .quotes { grid-template-columns: 1fr; max-width: 560px; gap: var(--space-4); }
+.turnoff__icon {
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  align-self: center;
+  color: var(--sage);
+  transition: color 0.2s ease;
 }
-.quote { display: flex; flex-direction: column; }
-.quote__mark {
-  font-family: var(--font-display);
-  font-size: var(--fs-h2);
-  line-height: 0.5;
-  color: var(--accent-light);
-  margin-bottom: var(--space-2);
+.turnoff__body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
 }
-.quote__text {
+.turnoff__label {
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-dark);
+}
+.turnoff__route {
   font-family: var(--font-display);
   font-size: var(--fs-h3);
-  font-style: italic;
-  line-height: 1.34;
   letter-spacing: -0.005em;
-  color: var(--forest-deep);
-  margin-bottom: var(--space-3);
+  line-height: 1.25;
+  color: var(--forest);
 }
-.quote__by {
-  margin-top: auto;
+.turnoff__cta {
+  flex-shrink: 0;
+  font-size: var(--fs-sm);
+  color: var(--ink-soft);
+  text-align: right;
+  position: relative;
+  transition: color 0.18s ease;
+}
+.turnoff__cta::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background: currentColor;
+  transition: width 0.2s ease;
+}
+.turnoff:hover .turnoff__cta { color: var(--forest-deep); }
+.turnoff:hover .turnoff__cta::after { width: 100%; }
+.turnoff:hover .turnoff__icon { color: var(--forest); }
+@media (max-width: 560px) {
+  .turnoff { flex-wrap: wrap; align-items: flex-start; }
+  .turnoff__cta {
+    width: 100%;
+    text-align: left;
+    padding-left: calc(1.25rem + var(--space-3));
+  }
+}
+
+/* ── Guests — links out to the real review listings ───────────────────── */
+/*  No on-site quotes: two big tappable cards send guests to Google and
+    Tripadvisor, where the words are their own. Centred head like contact. */
+#guests .sec-head { margin-inline: auto; text-align: center; }
+#guests .sec-head .eyebrow { display: inline-flex; }
+#guests .sec-head .lead { margin-inline: auto; }
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-top: var(--space-5);
+  max-width: 760px;
+  margin-inline: auto;
+}
+@media (max-width: 640px) {
+  .reviews { grid-template-columns: 1fr; max-width: 440px; }
+}
+.review-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius-lg);
+  background: var(--cream);
+  color: var(--ink);
+  text-decoration: none;
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.review-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent);
+  box-shadow: 0 16px 40px -18px rgba(28, 43, 26, 0.35);
+}
+.review-card__icon {
+  font-size: var(--fs-h3);
+  line-height: 1;
+  color: var(--accent-light);
+  margin-bottom: var(--space-1);
+}
+.review-card__name {
+  font-family: var(--font-display);
+  font-size: var(--fs-h3);
+  line-height: 1.1;
+  color: var(--forest-deep);
+}
+.review-card__blurb {
+  font-size: var(--fs-sm);
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.review-card__cta {
+  margin-top: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
   font-size: var(--fs-eyebrow);
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--accent-dark);
+}
+.review-card__arrow { transition: transform 0.2s ease; }
+.review-card:hover .review-card__arrow { transform: translateX(4px); }
+@media (prefers-reduced-motion: reduce) {
+  .review-card, .review-card__arrow { transition: none; }
 }
 
 /* ── Contact ──────────────────────────────────────────────────────────── */
@@ -1021,25 +1403,25 @@ body.lightbox-open { overflow: hidden; }
   transition: color 0.18s ease;
 }
 .method__value:hover { color: var(--accent-dark); }
+.method__note {
+  font-size: var(--fs-sm);
+  color: var(--ink-soft);
+  margin-top: var(--space-2);
+  max-width: 24ch;
+  margin-inline: auto;
+  line-height: 1.45;
+}
 .contact__divider { width: 1px; background: var(--rule); }
-@media (max-width: 520px) { .contact__divider { display: none; } }
+@media (max-width: 720px) {
+  .contact__methods { flex-direction: column; align-items: center; }
+  .contact__divider { display: none; }
+}
 .contact__hosts {
   font-family: var(--font-display);
   font-size: var(--fs-lead);
   color: var(--ink-soft);
-  margin-bottom: var(--space-4);
+  margin-top: var(--space-4);
 }
-.directions {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4em;
-  font-size: var(--fs-sm);
-  color: var(--ink-soft);
-  margin-top: var(--space-3);
-}
-.directions__arrow { display: inline-block; transition: transform 0.2s ease; }
-.directions:hover { color: var(--forest-deep); }
-.directions:hover .directions__arrow { transform: translateX(4px); }
 
 /* ── Footer ───────────────────────────────────────────────────────────── */
 .footer { background: var(--forest-deep); color: var(--ink-on-dark-soft); padding-block: var(--space-4); }

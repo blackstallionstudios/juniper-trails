@@ -15,11 +15,20 @@
         <p class="method__label">Email</p>
         <a class="method__value" href="{{site.emailHref}}">{{site.email}}</a>
       </div>
+      <div class="contact__divider" aria-hidden="true"></div>
+      <div class="method">
+        <p class="method__label">Directions</p>
+        <a
+          class="method__value"
+          href="{{site.directionsUrl}}"
+          target="_blank"
+          rel="noopener"
+        >
+          {{site.directionsCta}}
+        </a>
+        <p class="method__note">{{site.directionsLabel}}</p>
+      </div>
     </div>
     <p class="contact__hosts">&mdash; {{site.hosts}}</p>
-    <a class="directions" href="{{site.directionsUrl}}" target="_blank" rel="noopener">
-      {{site.directionsLabel}}
-      <span class="directions__arrow" aria-hidden="true">&rarr;</span>
-    </a>
   </div>
 </section>

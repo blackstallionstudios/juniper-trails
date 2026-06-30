@@ -18,6 +18,15 @@
       <a class="btn btn--on-dark" href="{{hero.ctaPrimary.href}}">{{hero.ctaPrimary.label}}</a>
       <a class="btn btn--ghost" href="{{hero.ctaSecondary.href}}">{{hero.ctaSecondary.label}}</a>
     </div>
+    <a
+      class="hero__loc"
+      href="{{site.directionsUrl}}"
+      target="_blank"
+      rel="noopener"
+    >
+      <span class="eyebrow eyebrow--on-dark hero__loc-label">{{site.directionsCta}}</span>
+      <span class="hero__loc-route">{{site.directionsLabel}}</span>
+    </a>
   </div>
   <span class="hero__hint" aria-hidden="true">Scroll</span>
 </section>
