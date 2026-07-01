@@ -1274,9 +1274,9 @@ body.lightbox-open { overflow: hidden; }
 /* ── Guests — links out to the real review listings ───────────────────── */
 /*  No on-site quotes: two big tappable cards send guests to Google and
     Tripadvisor, where the words are their own. Centred head like contact. */
-#guests .sec-head { margin-inline: auto; text-align: center; }
-#guests .sec-head .eyebrow { display: inline-flex; }
-#guests .sec-head .lead { margin-inline: auto; }
+#reviews .sec-head { margin-inline: auto; text-align: center; }
+#reviews .sec-head .eyebrow { display: inline-flex; }
+#reviews .sec-head .lead { margin-inline: auto; }
 .reviews {
   display: grid;
   grid-template-columns: repeat(2, 1fr);

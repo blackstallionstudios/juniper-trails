@@ -24,7 +24,7 @@ export default {
         email: 'info@junipertrails.ca',
         emailHref: 'mailto:info@junipertrails.ca',
         hosts: 'Steve & Emily',
-        directionsLabel: 'Dog Creek Road · 15 minutes from downtown Williams Lake',
+        directionsLabel: 'Dog Creek Road · 10 minutes from downtown Williams Lake',
         directionsCta: 'Get directions',
         directionsWaypoint: 'Find the turnoff',
         // On Dog Creek Road, between Williams Lake and Springhouse.
@@ -44,7 +44,7 @@ export default {
         { label: 'Rooms', href: '#rooms' },
         { label: 'Breakfast', href: '#breakfast' },
         { label: 'Trails', href: '#trails' },
-        { label: 'Guests', href: '#guests' },
+        { label: 'Reviews', href: '#reviews' },
         { label: 'Contact', href: '#contact' },
     ],
 
@@ -57,7 +57,7 @@ export default {
         { label: 'Rooms', href: '#rooms' },
         { label: 'The table', href: '#breakfast' },
         { label: 'Trails', href: '#trails' },
-        { label: 'Guests', href: '#guests' },
+        { label: 'Reviews', href: '#reviews' },
         { label: 'Visit', href: '#contact' },
     ],
 
@@ -90,9 +90,9 @@ export default {
         eyebrow: 'Your hosts',
         heading: "Steve & Emily",
         lead:
-            "27 stunning acres, friendly animals, and thoughtful, welcoming hospitality... And with so many things to see and do, make sure to stay awhile!",
+            "Welcome to our beautiful home and property, where nature and quiet comfort meet.",
         body: [
-            "",
+            " Stroll our scenic trail through rolling hills, wildflowers and birdsong, and enjoy the company of Franklin, Ginger and Maggie – our Australian shepherds – along with the horses and barn cats that make this place home. As you explore the beauty of the Cariboo and Chilcotin, we invite you to slow down, linger a little longer, and make yourself at home.",
         ],
         signature: 'Steve & Emily',
         signatureNote: 'and the dogs',
@@ -109,7 +109,7 @@ export default {
     //  the brief gives no per-room descriptions or the "named for a dog" story
     //  — those await Steve (see `namesakes` and the empty `items[].desc`).
     rooms: {
-        eyebrow: 'Three rooms',
+        eyebrow: 'Three guest rooms',
         heading: 'Built with your comfort in mind',
         intro:
             'Relax and enjoy the peaceful atmosphere and amenities found in our ' +
@@ -119,15 +119,12 @@ export default {
         // naming story lands before guests read Molly, Chase, and Duke.
         namesakes: {
             eyebrow: 'The namesakes',
-            heading: 'Molly, Chase, and Duke',
-            body:
-                'Three dogs the family has loved for years — and the reason each room ' +
-                'has a name. Caught here on the trail at Desous, not far from home.',
+            heading: 'Chase’s Place, Molly’s Rest and The Dukes',
+            body: "When we opened Juniper Trails in 2011, Chase, Molly and Duke were the heart of their home. These three beloved companions shared the beginning of their journey, and their spirit lives on in the names of our guest rooms. Three faithful friends. Forever remembered.",
             image: {
                 src: '/images/A1-3DogsAtDesous.jpg',
                 alt:
-                    'Molly, Chase, and Duke — three dogs on a snowy trail at Desous, ' +
-                    'evergreens and valley behind',
+                    'Caught here on a trail at Desous Mountain, are our current much loved animals, Ginger, Franklin and Maggie',
             },
         },
         items: [
@@ -272,7 +269,7 @@ export default {
     //  without touching the partial (add fields, don't rename).
     artwork: {
         eyebrow: 'Off the easel',
-        heading: "When the kitchen's quiet, Steve paints",
+        heading: "When the kitchen is quiet, Steve paints",
         intro:
             'Rocky Mountain lakes, a couple of animals, a still life, a cafe in ' +
             'Paris — bold, unhurried, and all his own. A few of them are here.',
@@ -367,13 +364,13 @@ export default {
     // ── Guests / reviews ────────────────────────────────────────────────
     //  No on-site quotes — we point straight at the real listings instead, so
     //  every word is the guests' own and nothing needs permission-clearing.
-    //  Key stays `testimonials` (the #guests section); the partial renders
+    //  Key stays `testimonials` (the #reviews section); the partial renders
     //  `platforms`, not `items`.
     //
     //  Links are stripped to essentials: tracking params removed. The Google
     //  URL keeps its `!1b1` flag so it opens on the reviews view.
     testimonials: {
-        eyebrow: 'Guests',
+        eyebrow: 'Guest reviews',
         heading: "Don't take our word for it",
         intro:
             'Years of guests have written up their stays — read them where they ' +
