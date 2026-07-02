@@ -5,8 +5,8 @@
         class="wordmark__mark"
         src="/images/logo-mark.png"
         alt=""
-        width="36"
-        height="36"
+        width="32"
+        height="26"
         decoding="async"
       />
       <span class="wordmark__text">{{site.nameLead}} <em>{{site.nameAccent}}</em></span>
@@ -28,8 +28,8 @@
         {{site.directionsCta}}
       </a>
       <a class="btn btn--primary nav__cta" href="{{site.phoneHref}}">
-        <span class="nav__cta-full">Call {{site.phone}}</span>
-        <span class="nav__cta-short" aria-hidden="true">Call</span>
+        <span class="nav__cta-full">{{site.phoneCta}} · {{site.phone}}</span>
+        <span class="nav__cta-short" aria-hidden="true">{{site.phoneCtaShort}}</span>
       </a>
       <button
         class="nav__toggle"

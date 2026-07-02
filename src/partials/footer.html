@@ -1,12 +1,12 @@
 <footer class="footer">
   <div class="container footer__inner">
     <span class="wordmark">
-      <img class="wordmark__mark" src="/images/logo-mark.png" alt="" width="32" height="32" decoding="async" />
+      <img class="wordmark__mark" src="/images/logo-mark.png" alt="" width="32" height="26" decoding="async" />
       <span class="wordmark__text">{{site.nameLead}} <em>{{site.nameAccent}}</em></span>
     </span>
     <p class="footer__meta">
       &copy; {{site.year}} {{site.name}} {{site.kind}} ·
-      <a href="{{site.directionsUrl}}" target="_blank" rel="noopener">{{site.locationShort}}</a>
+      <a href="{{site.directionsUrl}}" target="_blank" rel="noopener"><span class="footer__addr-num">{{site.streetNumber}}</span> {{site.street}} · {{site.locationShort}}</a>
       · {{site.designCredit.prefix}}
       <a href="{{site.designCredit.href}}" target="_blank" rel="noopener">{{site.designCredit.name}}</a>
     </p>

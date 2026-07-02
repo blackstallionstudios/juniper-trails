@@ -5,9 +5,6 @@
         <p class="eyebrow" data-reveal>{{trails.eyebrow}}</p>
         <h2 class="h2" data-reveal>{{trails.heading}}</h2>
         <p class="lead" data-reveal>{{trails.intro}}</p>
-        {{#if trails.activitiesBlurb}}
-        <p class="trails__prose" data-reveal>{{trails.activitiesBlurb}}</p>
-        {{/if}}
         {{#if trails.seasons}}
         <p class="trails__season" data-season-note hidden>
           {{#if trails.seasons.spring}}<span class="trails__season-line" data-season="spring" hidden>{{trails.seasons.spring}}</span>{{/if}}
@@ -16,18 +13,11 @@
           {{#if trails.seasons.winter}}<span class="trails__season-line" data-season="winter" hidden>{{trails.seasons.winter}}</span>{{/if}}
         </p>
         {{/if}}
-        <ul class="activities" data-reveal>
-          {{#each trails.activities}}
-          <li class="activity">
-            <span class="activity__name">{{this.name}}</span>
-            <span class="activity__note">{{this.note}}</span>
-          </li>
-          {{/each}}
-        </ul>
+        <p class="activities" data-reveal>{{#each trails.activities}}{{this.name}}{{#unless @last}} / {{/unless}}{{/each}}</p>
         <div class="nearby" data-reveal>
           <p class="nearby__label">{{trails.nearby.label}}</p>
           <p class="nearby__list">
-            {{#each trails.nearby.places}}{{this}}{{#unless @last}} · {{/unless}}{{/each}}
+            {{#each trails.nearby.places}}{{this}}{{#unless @last}}, {{/unless}}{{/each}}
           </p>
         </div>
         <a

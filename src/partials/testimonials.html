@@ -8,7 +8,12 @@
     <div class="reviews" data-reveal-group>
       {{#each testimonials.platforms}}
       <a class="review-card" href="{{this.href}}" target="_blank" rel="noopener" data-reveal>
-        <span class="review-card__icon" aria-hidden="true">&#9733;</span>
+        {{{stars this.rating}}}
+        {{#if this.rating}}
+        <span class="review-card__meta">
+          {{this.rating}}{{#if this.reviewCount}} &middot; {{this.reviewCount}} reviews{{/if}}
+        </span>
+        {{/if}}
         <span class="review-card__name">{{this.name}}</span>
         <span class="review-card__blurb">{{this.blurb}}</span>
         <span class="review-card__cta">
@@ -16,6 +21,20 @@
         </span>
       </a>
       {{/each}}
+    </div>
+
+    <div class="ta-widget" data-reveal>
+      <p class="ta-widget__label">Award recognition</p>
+      <a class="ta-badge" href="{{testimonials.platforms.[1].href}}" target="_blank" rel="noopener">
+        <div class="ta-badge__acclaim">{{testimonials.badge.acclaim}}</div>
+        <div class="ta-badge__body">
+          <p class="ta-badge__text">
+            {{site.name}} {{site.kind}} {{testimonials.badge.label}}
+            {{testimonials.platforms.[1].reviewCount}} {{testimonials.badge.travelerSuffix}}
+          </p>
+          <img class="ta-badge__logo" src="/images/tripadvisor-logo.svg" alt="TripAdvisor" width="148" height="32">
+        </div>
+      </a>
     </div>
   </div>
 </section>

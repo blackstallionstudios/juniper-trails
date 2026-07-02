@@ -21,10 +21,17 @@ export default {
         locationShort: 'Williams Lake, BC',
         phone: '250-398-8296',
         phoneHref: 'tel:2503988296',
+        // Button / label copy for phone contact points. Update these if the
+        // wording changes — the partials pull from here, not hardcoded text.
+        phoneCta: 'Call or Text',        // nav CTA full label (precedes the number)
+        phoneCtaShort: 'Call / Text',    // nav CTA compact label (small screens)
+        phoneMethodLabel: 'Phone / Text', // contact-section method heading
         email: 'info@junipertrails.ca',
         emailHref: 'mailto:info@junipertrails.ca',
         hosts: 'Steve & Emily',
-        directionsLabel: 'Dog Creek Road · 10 minutes from downtown Williams Lake',
+        streetNumber: '2523',
+        street: 'Dog Creek Road',
+        directionsLabel: '2523 Dog Creek Road — 10 minutes from downtown Williams Lake',
         directionsCta: 'Get directions',
         directionsWaypoint: 'Find the turnoff',
         // On Dog Creek Road, between Williams Lake and Springhouse.
@@ -63,7 +70,7 @@ export default {
 
     // ── Hero ──────────────────────────────────────────────────────────────
     hero: {
-        eyebrow: 'Discover Juniper Trails Bed & Breakfast · Williams Lake, BC',
+        eyebrow: 'Discover Juniper Trails Bed & Breakfast — Williams Lake, BC',
         heading: 'A rest stop for all adventurers.',
         body:
             'A three-room bed & breakfast on twenty-seven acres of Cariboo stillness - friendly animals, and thoughtful, welcoming hospitality.',
@@ -119,7 +126,7 @@ export default {
         // naming story lands before guests read Molly, Chase, and Duke.
         namesakes: {
             eyebrow: 'The namesakes',
-            heading: 'Chase’s Place, Molly’s Rest and The Dukes',
+            heading: "Chase's Place, Molly's Rest and The Dukes",
             body: "When we opened Juniper Trails in 2011, Chase, Molly and Duke were the heart of their home. These three beloved companions shared the beginning of their journey, and their spirit lives on in the names of our guest rooms. Three faithful friends. Forever remembered.",
             image: {
                 src: '/images/A1-3DogsAtDesous.jpg',
@@ -132,15 +139,15 @@ export default {
                 id: 'mollys-rest',
                 name: "Molly's Rest",
                 desc: '', // awaiting Steve's copy — not in the brief
-                meta: 'Standard queen · Ensuite',
-                price: '$199',
+                meta: 'Standard queen, ensuite',
+                price: '$189',
                 image: { src: '/images/M2-MollysRest-GuestRoom.jpg', alt: "Molly's Rest — guest room with a bed beside a bright window onto the grounds" },
             },
             {
                 id: 'chases-place',
                 name: "Chase's Place",
                 desc: '', // awaiting Steve's copy — not in the brief
-                meta: 'Standard double · Ensuite',
+                meta: 'Standard double, ensuite',
                 price: '$189',
                 image: { src: '/images/B2-ChasesPlace-GuestRoom.jpg', alt: "Chase's Place — guest room with a double bed" },
             },
@@ -148,27 +155,11 @@ export default {
                 id: 'the-dukes',
                 name: 'The Dukes',
                 desc: '', // awaiting Steve's copy — not in the brief
-                meta: 'Deluxe queen · Ensuite',
-                price: '$209',
+                meta: 'Deluxe queen, ensuite',
+                price: '$189',
                 image: { src: '/images/B3-TheDukes-GuestRoom.jpg', alt: 'The Dukes — deluxe guest room with a view across the grounds' },
             },
         ],
-        // One bath photo for the section — each room has its own, but a single
-        // detail shot keeps the grid from repeating the same beat three times.
-        bath: {
-            eyebrow: 'The baths',
-            heading: 'Each room, its own',
-            body:
-                'Every room has its own spacious, private ensuite — no sharing down ' +
-                'the hall, ever. They are kept spotless, stocked with fresh towels, ' +
-                'and finished with the same care as the rest of the house.',
-            image: {
-                src: '/images/Bathroom.jpg',
-                alt:
-                    'One of the private guest ensuites — dark vanity, white sink, ' +
-                    'fresh towels, and bear art on the wall',
-            },
-        },
         // Shared common ground — the intro promises kitchen, living room, and
         // fire; this is the visual payoff after the three private rooms.
         shared: {
@@ -191,9 +182,9 @@ export default {
         //  slim closing strip: the shared conditions, the reserve CTA, and the
         //  link to the cancellation policy lightbox (policy.js).
         rates: {
-            note: 'Per night · double occupancy · CAD',
+            note: 'Per night, double occupancy, CAD',
             fineprint: [
-                'Checkout is 10 a.m. Government rates available, and we are glad to talk through longer stays.',
+                'Checkout is 10 a.m. Government rates available, and we are glad to discuss longer stays.',
                 'Rates are subject to change without notice.',
             ],
             cta: { label: 'Call, text, or email to reserve', href: '#contact' },
@@ -273,15 +264,15 @@ export default {
         intro:
             'Rocky Mountain lakes, a couple of animals, a still life, a cafe in ' +
             'Paris — bold, unhurried, and all his own. A few of them are here.',
-        hint: 'Drag to wander · Click a painting to see it larger',
+        hint: 'Drag to wander — click a painting to see it larger',
         pieces: [
             {
                 src: '/images/art-shadow-lake.jpg', title: 'Shadow Lake', note: '', w: 1600, h: 782,
                 alt: "Steve's painting of Shadow Lake — a still alpine lake below snow-streaked peaks, in bold outline and saturated colour",
             },
             {
-                src: '/images/art-maggie.jpg', title: 'Maggie', note: 'Border collie', w: 1182, h: 1600,
-                alt: "Steve's portrait of Maggie, a bright-eyed border collie, against a warm ground",
+                src: '/images/art-maggie.jpg', title: 'Maggie', note: 'Australian Shepherd', w: 1182, h: 1600,
+                alt: "Steve's portrait of Maggie, a bright-eyed Australian Shepherd, against a warm ground",
             },
             {
                 src: '/images/art-valley-of-the-ten-peaks.jpg', title: 'Valley of the Ten Peaks', note: '', w: 1600, h: 1279,
@@ -327,14 +318,11 @@ export default {
         eyebrow: 'Outside the door',
         heading: 'Trails, lakes, and a lot of sky',
         intro:
-            'While you stay, follow the legendary Gold Rush Trail to Wells and Barkerville. Explore Farwell Canyon and the memorable Williams Lake Stampede.',
-        activitiesBlurb:
-            'Step out the door onto a walking trail that loops the property — twenty-seven acres are yours to wander. A mountain biking trailhead sits just two kilometres up the road, and from there the trail-laced hillsides around Williams Lake open up for riding, hiking and trail running. The abundant lakes, rivers and mountains of the Cariboo Chilcotin naturally attract outdoor enthusiasts.',
+            'Follow the property trail through twenty-seven acres of Cariboo stillness — or venture out to Farwell Canyon, Barkerville, and the trail-laced hills around Williams Lake.',
         activities: [
-            { name: 'Mountain biking', note: 'Trails lace the hills' },
-            { name: 'Hiking & running', note: 'A trail loops the property' },
-            { name: 'Camping', note: 'By a lake or near a mountain, it\'s all up to you' },
-            { name: 'Paddle & fish', note: 'Lakes and rivers minutes away' },
+            { name: 'Mountain biking' },
+            { name: 'Hiking & running' },
+            { name: 'Paddle & fish' },
         ],
         nearby: {
             label: 'Well worth the drive',
@@ -375,9 +363,23 @@ export default {
         intro:
             'Years of guests have written up their stays — read them where they ' +
             'left them, then come back and add your own.',
+        //  RATINGS — keep these in sync with the live platform values so
+        //  visitors aren't shown a number that differs from what they'll see
+        //  when they click through. Check every few months or after a review
+        //  burst. Set reviewCount to null to hide it (stars + number still show).
+        // Badge shown below the platform cards — static recreation of the
+        // TripAdvisor "excellent" award widget (no third-party script).
+        // reviewCount is shared with platforms[1] below; update both there.
+        badge: {
+            acclaim: 'Bravo!',
+            label: 'rated "excellent" by',
+            travelerSuffix: 'travelers',
+        },
         platforms: [
             {
                 name: 'Google',
+                rating: 5,         // ← update to match current Google Maps rating
+                reviewCount: 31,   // ← e.g. 47  (null = hide count)
                 blurb: 'Guest reviews on our Google Maps listing.',
                 cta: 'Read on Google',
                 href:
@@ -388,6 +390,8 @@ export default {
             },
             {
                 name: 'Tripadvisor',
+                rating: 5.0,         // ← update to match current Tripadvisor rating
+                reviewCount: 72,   // ← e.g. 31  (null = hide count)
                 blurb: 'Traveller reviews and ratings on Tripadvisor.',
                 cta: 'Read on Tripadvisor',
                 href:

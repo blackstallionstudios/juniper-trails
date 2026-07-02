@@ -136,13 +136,12 @@
   transition: color 0.25s ease;
 }
 .wordmark em { font-style: normal; color: var(--accent-light); }
-/* The juniper-tree mark (cropped from the full logo). Square green tile with
-   a white tree — reads on the dark hero and the cream stuck nav alike. */
+/* Juniper-tree mark — rectangular crop (64×52 px @2×), displayed at 2rem wide. */
 .wordmark__mark {
   flex: none;
   display: block;
   width: 2rem;
-  height: 2rem;
+  height: auto;
   border-radius: var(--radius-lg);
 }
 .wordmark:hover .wordmark__mark { opacity: 0.92; }
@@ -422,7 +421,7 @@
   display: grid;
   grid-template-columns: minmax(0, 0.92fr) minmax(0, 1fr);
   gap: var(--space-4) clamp(var(--space-4), 5vw, var(--space-6));
-  align-items: center;
+  align-items: start;
 }
 @media (max-width: 860px) {
   .hosts__grid {
@@ -527,47 +526,6 @@
 }
 .room__desc { margin-top: var(--space-2); color: var(--ink-soft); font-size: var(--fs-sm); line-height: 1.62; }
 
-/* The baths — one detail shot after the three-room grid. Image leads on the
-   left; copy on the right mirrors the namesakes beat above the grid. */
-.rooms__bath {
-  margin-top: var(--space-6);
-  padding-top: var(--space-5);
-  border-top: 1px solid var(--rule);
-}
-.rooms-bath {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.36fr);
-  gap: var(--space-4) var(--space-5);
-  align-items: end;
-}
-.rooms-bath__copy .h3 { margin-top: var(--space-2); }
-.rooms-bath__body {
-  margin-top: var(--space-2);
-  color: var(--ink-soft);
-  font-size: var(--fs-sm);
-  line-height: 1.62;
-  max-width: 34ch;
-}
-.rooms-bath__media {
-  margin: 0;
-  aspect-ratio: 3 / 2;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-}
-.rooms-bath__media img {
-  transition: transform 0.9s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-.rooms-bath:hover .rooms-bath__media img { transform: scale(1.02); }
-@media (max-width: 900px) {
-  .rooms-bath {
-    grid-template-columns: 1fr;
-    gap: var(--space-3);
-    align-items: start;
-    max-width: 520px;
-  }
-  .rooms-bath__body { max-width: none; }
-}
-
 /* The namesakes — three dogs before the three rooms. Image leads on the left;
    copy on the right mirrors the parlour beat below (which flips the layout). */
 .rooms__namesakes {
@@ -579,7 +537,7 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.36fr);
   gap: var(--space-4) var(--space-5);
-  align-items: end;
+  align-items: start;
 }
 .rooms-namesakes__copy .h3 { margin-top: var(--space-2); }
 .rooms-namesakes__body {
@@ -620,7 +578,7 @@
   display: grid;
   grid-template-columns: minmax(0, 0.36fr) minmax(0, 1fr);
   gap: var(--space-4) var(--space-5);
-  align-items: end;
+  align-items: start;
 }
 .rooms-shared__copy .h3 { margin-top: var(--space-2); }
 .rooms-shared__body {
@@ -820,7 +778,7 @@ body.policy-open { overflow: hidden; }
   display: grid;
   grid-template-columns: 1.05fr 0.95fr;
   gap: var(--space-5);
-  align-items: center;
+  align-items: start;
 }
 @media (max-width: 860px) {
   .breakfast__grid { grid-template-columns: 1fr; gap: var(--space-4); }
@@ -1149,34 +1107,13 @@ body.lightbox-open { overflow: hidden; }
   .trails__grid { grid-template-columns: 1fr; gap: var(--space-4); }
 }
 .trails__copy .lead { margin-top: var(--space-3); }
-.trails__copy .trails__prose {
-  margin-top: var(--space-3);
-  color: var(--ink-soft);
-  max-width: var(--measure);
-}
 .activities {
-  list-style: none;
-  padding: 0;
   margin-top: var(--space-4);
-  display: grid;
-  gap: 0;
-}
-.activity {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: var(--space-3);
-  padding: var(--space-3) 0;
-  border-top: 1px solid var(--rule);
-}
-.activity:last-child { border-bottom: 1px solid var(--rule); }
-.activity__name {
   font-family: var(--font-display);
   font-size: var(--fs-h3);
   letter-spacing: -0.005em;
   color: var(--forest);
 }
-.activity__note { font-size: var(--fs-sm); color: var(--ink-soft); text-align: right; }
 .trails__media {
   aspect-ratio: 3 / 4;
   border-radius: var(--radius-lg);
@@ -1307,11 +1244,29 @@ body.lightbox-open { overflow: hidden; }
   border-color: var(--accent);
   box-shadow: 0 16px 40px -18px rgba(28, 43, 26, 0.35);
 }
-.review-card__icon {
+.review-card__stars {
+  display: flex;
+  gap: 0.08em;
   font-size: var(--fs-h3);
   line-height: 1;
-  color: var(--accent-light);
   margin-bottom: var(--space-1);
+}
+.review-card__stars--none { color: var(--accent-light); }
+.star { display: inline-block; color: #c8a442; }
+.star--empty { color: var(--placeholder); }
+.star--half {
+  background: linear-gradient(to right, #c8a442 50%, var(--placeholder) 50%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.review-card__meta {
+  font-size: var(--fs-sm);
+  color: var(--ink-faint);
+  margin-top: calc(-1 * var(--space-1));
+  margin-bottom: var(--space-1);
+  font-variant-numeric: tabular-nums;
 }
 .review-card__name {
   font-family: var(--font-display);
@@ -1339,6 +1294,77 @@ body.lightbox-open { overflow: hidden; }
 .review-card:hover .review-card__arrow { transform: translateX(4px); }
 @media (prefers-reduced-motion: reduce) {
   .review-card, .review-card__arrow { transition: none; }
+}
+
+/* ── TripAdvisor award widget ─────────────────────────────────────────── */
+/*  Centered trust-mark below the two platform cards. The TA script injects
+    a float-based layout; we reset it here so the badge centers cleanly. */
+.ta-widget {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--rule);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+}
+.ta-widget__label {
+  margin: 0;
+  font-size: var(--fs-eyebrow);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.ta-badge {
+  display: flex;
+  flex-direction: column;
+  width: 280px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  /* Neumorphic inset — light source top-left, shadow bottom-right */
+  background: var(--cream);
+  box-shadow:
+    inset 0 0 14px  rgba(28, 43, 26, 0.18),
+    inset 3px 3px 8px  rgba(28, 43, 26, 0.22),
+    inset -3px -3px 8px rgba(255, 255, 255, 0.90);
+  transition: box-shadow 0.2s ease;
+}
+.ta-badge:hover {
+  box-shadow:
+    inset 0 0 16px  rgba(28, 43, 26, 0.22),
+    inset 4px 4px 10px rgba(28, 43, 26, 0.28),
+    inset -4px -4px 10px rgba(255, 255, 255, 0.95);
+}
+.ta-badge__acclaim {
+  background: #02ea5b;
+  color: #fff;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: var(--fs-lead);
+  text-align: center;
+  padding: 0.45em 1em;
+  letter-spacing: 0.01em;
+}
+.ta-badge__body {
+  padding: var(--space-3) var(--space-3) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  text-align: center;
+}
+.ta-badge__text {
+  margin: 0;
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+  color: var(--ink-soft);
+}
+.ta-badge__logo {
+  display: block;
+  width: 148px;
+  height: auto;
 }
 
 /* ── Contact ──────────────────────────────────────────────────────────── */
@@ -1408,6 +1434,13 @@ body.lightbox-open { overflow: hidden; }
   text-decoration-color: color-mix(in srgb, var(--ink-on-dark-soft) 45%, transparent);
 }
 .footer__meta a:hover { color: var(--accent-light); text-decoration-color: currentColor; }
+.footer__addr-num {
+  font-family: var(--font-display);
+  font-size: 1.1em;
+  font-style: italic;
+  color: var(--accent-light);
+  letter-spacing: -0.01em;
+}
 
 /* ═══════════════════════════════════════════════════════════════════════════
    Personal touches — scrollbar, trail-drift reveals, seasonal note
